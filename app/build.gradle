@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    defaultConfig {
+        applicationId "com.yida.cloud.sugar"
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            buildConfigField "boolean", "isDebug", "false"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            ndk {
+                abiFilters "armeabi-v7a" // 保留这种架构的CPU
+
+            }
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            buildConfigField "boolean", "isDebug", "true"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            ndk {
+////                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a" // 保留这三种架构的CPU
+
+            }
+        }
+    }
+}
+kapt {
+    arguments {
+        arg("module_app", project.getName())
+    }
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':sugar-core')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile rootProject.ext.dependencies["kotlin-stdlib"]
+    implementation rootProject.ext.dependencies["design"]
+    //--------------生命周期绑定
+    //
+    //
+    implementation rootProject.ext.dependencies["rxlifecycle2"]
+    implementation rootProject.ext.dependencies["rxlifecycle-components2"]
+    implementation rootProject.ext.dependencies["rxlifecycle-android2"]
+    //
+    //
+    //--------------生命周期绑定
+    //    implementation 'com.github.aohanyao:mvp-ui-library:v0.5-alpha'
+    kapt rootProject.ext.dependencies["arouter-compiler"]
+}
+repositories {
+    mavenCentral()
+}

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Sugar</string>
+    <string name="title_activity_td_base_app">TdBaseActivity</string>
+    <string name="title_activity_test_td_base_app">测试Activity</string>
+
+    <string name="title_activity_test">测试Activity</string>
+
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main3">Main3Activity</string>
+</resources>

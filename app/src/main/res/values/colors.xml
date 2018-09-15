@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fff</color>
+    <color name="colorPrimaryDark">#fff</color>
+    <color name="colorPrimaryDark2">#fff</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--标题栏 导航文字颜色-->
+    <color name="ToolbarNavTextColor">#000</color>
+    <!--标题栏 标题文字颜色-->
+    <color name="ToolbarTitleTextColor">#000</color>
+    <!--导航文字大小-->
+    <dimen name="ToolbarNavTextSize">15sp</dimen>
+    <!--标题文字大小-->
+    <dimen name="ToolbarTitleTextSize">18sp</dimen>
+    <!--标题栏的高度-->
+    <dimen name="AppBarLayoutHeight">44dp</dimen>
+    <!--导航文字距离左边的边距-->
+    <dimen name="ToolbarNavTextMarginLeft">22dp</dimen>
+
+</resources>

@@ -1,0 +1,17 @@
+*.iml
+.gradle
+/local.properties
+
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/.idea/
+
+.apk
+/library_core/build/
+/module_wallet/module_wallet.iml
+/library_ui/library_ui.iml
+gradle/
+gradlew
+gradlew.bat
