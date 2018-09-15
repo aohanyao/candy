@@ -88,10 +88,4 @@ ext {
             "constraint-layout"          : "com.android.support.constraint:constraint-layout:1.1.2"
     ]
 
-    signingConfig = [
-            "storeFile"    : "../ydyt.jks",
-            "storePassword": "ydyt123456",
-            "keyAlias"     : "易达云图（深圳）有限公司",
-            "keyPassword"  : "ydyt123456",
-    ]
 }

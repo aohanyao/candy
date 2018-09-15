@@ -66,6 +66,26 @@ class DialogHelper private constructor(private val mActivity: Activity, private 
 
 
     /**
+     * 显示消息的弹窗
+     *
+     * @param message
+     */
+    fun showMessageDialog(message: String?) {
+        dismissDialog()
+        //解析布局
+        mInflater.inflate(R.layout.dialog_message, null)?.apply {
+            //消息
+            this.findViewById<TextView>(R.id.tv_dialog_message)?.text = message ?: ""
+            //确认按钮
+            initActionButton(this.findViewById(R.id.btn_confirm),
+                    "确定", {})
+
+            //创建和显示弹窗
+            createAndShowDialog(this)
+        }
+    }
+
+    /**
      * 显示成功窗口
      */
     fun showSuccessDialog(title: String?,

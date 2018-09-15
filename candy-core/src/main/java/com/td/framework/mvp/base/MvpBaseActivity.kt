@@ -242,14 +242,14 @@ abstract class MvpBaseActivity<P> : TDBaseActivity(), DialogInterface.OnCancelLi
      * *
      * @param onDialogConfirmListener 确认按钮点击
      */
-    fun showConfirmDialog(message: String?,
+    open fun showConfirmDialog(message: String?,
                           confirmText: String?,
                           cancelText: String?,
                           onDialogConfirmListener: (dialog: AlertDialog) -> Unit = {}, onDialogCancelableListener: (dialog: AlertDialog) -> Unit = {}) {
         mDialogHelper.showConfirmDialog(message, confirmText, cancelText, onDialogConfirmListener, onDialogCancelableListener)
     }
 
-    fun showConfirmDialog(message: String?,
+    open fun showConfirmDialog(message: String?,
                           confirmText: String?,
                           cancelText: String?,
                           onDialogConfirmListener: (dialog: AlertDialog) -> Unit = {}) {
@@ -257,11 +257,11 @@ abstract class MvpBaseActivity<P> : TDBaseActivity(), DialogInterface.OnCancelLi
     }
 
 
-    fun onFail(error: NetError) {
+    open fun onFail(error: NetError) {
         handlerFail(error)
     }
 
-    fun complete(msg: String) {
+    open fun complete(msg: String) {
         handlerComplete(msg)
     }
 
@@ -270,7 +270,7 @@ abstract class MvpBaseActivity<P> : TDBaseActivity(), DialogInterface.OnCancelLi
 
      * @param msg
      */
-    fun showLoading(@StringRes msg: Int) {
+    open fun showLoading(@StringRes msg: Int) {
         dismissDialog()
         showLoadingDialog(resources.getString(msg), true)
     }

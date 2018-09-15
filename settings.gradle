@@ -1,2 +1,2 @@
 include ':app',
-        ':sugar-core'
+        ':candy-core'

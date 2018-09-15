@@ -76,7 +76,9 @@ dependencies {
     }
 
     compile rootProject.ext.dependencies["multidex"]
-    compile rootProject.ext.dependencies["Luban"]
+    compile(rootProject.ext.dependencies["Luban"]) {
+        exclude group: 'com.android.support'
+    }
 
     /**路由*/
     compile rootProject.ext.dependencies["arouter-api"]
@@ -109,27 +111,39 @@ dependencies {
     /**loading view*/
     compile rootProject.ext.dependencies["avi-loading"]
     /**recycleView适配器*/
-    compile rootProject.ext.dependencies["BaseAdapter"]
+    compile (rootProject.ext.dependencies["BaseAdapter"]){
+        exclude group: 'com.android.support'
+    }
     /**滑动隐藏*/
-    compile rootProject.ext.dependencies["ByeBurger"]
+    compile (rootProject.ext.dependencies["ByeBurger"]){
+        exclude group: 'com.android.support'
+    }
 
     /**指示器*/
-    compile rootProject.ext.dependencies["circleindicator"]
+    compile (rootProject.ext.dependencies["circleindicator"]){
+        exclude group: 'com.android.support'
+    }
     /**banner*/
     compile(rootProject.ext.dependencies["convenientbanner"]) {
         exclude group: 'com.android.support'
     }
     /**富文本*/
-    compile rootProject.ext.dependencies["richtext"]
+    compile (rootProject.ext.dependencies["richtext"]){
+        exclude group: 'com.android.support'
+    }
 
     /*图片选择器*/
-    compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'
+    compile ('com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'){
+        exclude group: 'com.android.support'
+    }
 
     compile rootProject.ext.dependencies["logger"]
     /**拼音转换*/
     compile rootProject.ext.dependencies["tinypinyin"]
 
-    compile rootProject.ext.dependencies["Android-PickerView"]
+    compile (rootProject.ext.dependencies["Android-PickerView"]){
+        exclude group: 'com.android.support'
+    }
 
 
 }
