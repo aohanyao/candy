@@ -15,6 +15,7 @@ import android.util.Pair
 import android.view.View
 
 import com.td.framework.R
+import com.td.framework.biz.NetError
 import com.td.framework.global.app.AppManager
 import com.td.framework.global.app.Constant
 import com.td.framework.model.BaseIntentDto
@@ -210,7 +211,16 @@ open class NoSwipeBaseActivity : RxAppCompatActivity() {
         if (useEventBus()) EventBus.getDefault().unregister(this)
         System.gc()
     }
+    open fun onFail(error: NetError) {
+        complete(error.message ?: "")
+    }
 
+    open fun complete(msg: String) {
+        msg.let { showTost(msg) }
+    }
+
+    open fun showLoading(msg: Int) {
+    }
 
     /**
      * 重启activity

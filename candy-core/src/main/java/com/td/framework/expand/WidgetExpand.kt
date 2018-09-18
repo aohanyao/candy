@@ -19,6 +19,7 @@ import com.td.framework.global.app.App
 import com.td.framework.utils.DensityUtils
 import com.td.framework.utils.KeyBoardUtils
 import com.td.framework.utils.SpannableStringUtils
+import java.text.DecimalFormat
 
 /**
  * Created by jc on 2017/7/20 0020.
@@ -201,4 +202,15 @@ fun TextView.setUnusualPrices(strPrice: String?, vararg other: String) {
         strPrice
     }
 
+}
+/**
+ * 转换为千分位的人民币
+ */
+fun Double.toRMB(): String {
+    return try {
+        //补位
+        "￥" + DecimalFormat("###,##0.00").format(this)
+    } catch (e: Exception) {
+        "￥0.00"
+    }
 }

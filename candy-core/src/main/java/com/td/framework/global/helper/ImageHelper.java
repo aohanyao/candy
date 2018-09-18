@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -71,8 +72,34 @@ public class ImageHelper {
                 .apply(noPlaceHolderOptions)
                 .into(imageView);
     }
+    /**
+     * 判断链接或者路径是否是图片
+     * @param path
+     */
+    public static boolean isPhoto(String path){
+        if(TextUtils.isEmpty(path)) return false;
+        String fileType = getFileType(path);
+        return "png".equalsIgnoreCase(fileType) || "jpg".equalsIgnoreCase(fileType) || "jpeg".equalsIgnoreCase(fileType);
+    }
+    /***
+     * 获取文件类型
+     * @param paramString
+     * @return
+     */
+    public static String getFileType(String paramString) {
+        String str = "";
 
+        if (TextUtils.isEmpty(paramString)) {
+            return str;
+        }
+        int i = paramString.lastIndexOf('.');
+        if (i <= -1) {
+            return str;
+        }
 
+        str = paramString.substring(i + 1);
+        return str;
+    }
     /**
      * Glide 加载图片
      *

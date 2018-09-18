@@ -173,11 +173,11 @@ abstract class MvpNoSwipeBaseActivity<P> : NoSwipeBaseActivity(), DialogInterfac
     }
 
 
-    fun onFail(error: NetError) {
+    override fun onFail(error: NetError) {
         handlerFail(error)
     }
 
-    fun complete(msg: String) {
+    override fun complete(msg: String) {
         handlerComplete(msg)
     }
 
@@ -186,7 +186,7 @@ abstract class MvpNoSwipeBaseActivity<P> : NoSwipeBaseActivity(), DialogInterfac
 
      * @param msg
      */
-     fun showLoading(@StringRes msg: Int) {
+    override fun showLoading(@StringRes msg: Int) {
         mDialogHelper.dismissDialog()
         mDialogHelper.showLoadingDialog(resources.getString(msg), true)
     }

@@ -24,6 +24,7 @@ abstract class TDBaseLoadingActivity : TDBaseActivity() {
     protected open var mEmptyView: View? = null
     protected open var mNoPermissionsView: View? = null
     protected open var mErrorTextView: TextView? = null
+    protected open var mEmptyTextView: TextView? = null
     /**
      * 初始化布局 增加加载框
 
@@ -45,6 +46,7 @@ abstract class TDBaseLoadingActivity : TDBaseActivity() {
         mLoadView = LayoutInflater.from(mActivity).inflate(getRootLoadingLayoutId(), null, false)
         mRetryView = LayoutInflater.from(mActivity).inflate(getRootRetryLayoutId(), null, false)
         mErrorTextView = mRetryView?.findViewById(R.id.tvError)
+        mEmptyTextView = mEmptyView?.findViewById(R.id.tv_load_empty)
         mEmptyView = LayoutInflater.from(mActivity).inflate(getRootEmptyLayoutId(), null, false)
         mNoPermissionsView = LayoutInflater.from(mActivity).inflate(R.layout.loding_no_permissions, null, false)
         setRetryEvent(mRetryView)
@@ -159,7 +161,15 @@ abstract class TDBaseLoadingActivity : TDBaseActivity() {
             onRetry()
         }
     }
-
+    /**
+     * 设置错误提示的文字
+     * @param emptyText 空
+     */
+    protected fun setEmptyText(emptyText: String?) {
+        emptyText?.run {
+            mEmptyTextView?.text = emptyText
+        }
+    }
     /**
      * 数据重新尝试
      */
