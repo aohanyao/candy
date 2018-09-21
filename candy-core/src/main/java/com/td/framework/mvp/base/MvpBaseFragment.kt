@@ -211,6 +211,29 @@ abstract class MvpBaseFragment<P> : TDBaseLoadingFragment(),
         mDialogHelper.showLoadingDialog(resources.getString(msg), true)
     }
 
+    /**
+     * 显示loading弹窗
+
+     * @param msg        消息
+     * *
+     * @param cancelable 是否可以取消
+     */
+    protected fun showLoadingDialog(msg: String, cancelable: Boolean) {
+        mDialogHelper.showLoadingDialog(msg, cancelable)
+    }
+
+    /**
+     * 显示loading弹窗
+
+     * @param resId      消息
+     * *
+     * @param cancelable 是否可以取消
+     */
+    protected fun showLoadingDialog(@StringRes resId: Int, cancelable: Boolean) {
+        //显示loading
+        showLoadingDialog(mActivity.resources.getString(resId), cancelable)
+    }
+
     override fun onCancel(dialog: DialogInterface) {
         if (subscribe != null) {
             subscribe!!.dispose()
