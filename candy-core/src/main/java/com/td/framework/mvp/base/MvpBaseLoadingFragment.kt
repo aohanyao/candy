@@ -3,7 +3,6 @@ package com.td.framework.mvp.base
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.support.annotation.StringRes
 import android.support.v7.app.AlertDialog
 import com.td.framework.biz.NetError
 import com.td.framework.mvp.presenter.BasePresenter
@@ -42,28 +41,6 @@ abstract class MvpBaseLoadingFragment<P> : MvpBaseFragment<P>(){
         }
     }
 
-    /**
-     * 显示loading弹窗
-
-     * @param msg        消息
-     * *
-     * @param cancelable 是否可以取消
-     */
-    protected fun showLoadingDialog(msg: String, cancelable: Boolean) {
-        mDialogHelper.showLoadingDialog(msg, cancelable)
-    }
-
-    /**
-     * 显示loading弹窗
-
-     * @param resId      消息
-     * *
-     * @param cancelable 是否可以取消
-     */
-    protected fun showLoadingDialog(@StringRes resId: Int, cancelable: Boolean) {
-        //显示loading
-        showLoadingDialog(mActivity.resources.getString(resId), cancelable)
-    }
 
     /**
      * 显示提示消息

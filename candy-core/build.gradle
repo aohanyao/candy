@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode 1006
-        versionName "v0.006alpha"
+        versionCode 1008
+        versionName "v0.008alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }

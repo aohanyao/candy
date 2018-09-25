@@ -1,6 +1,7 @@
 package com.td.framework.model.bean;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,11 @@ public class ListDataModelImp<T> implements ListDataModel {
             return new ArrayList();
         }
         return data.getData();
+    }
+
+    @Override
+    public void setList(@Nullable List list) {
+
     }
 
     public static class DataBeanX<T> {

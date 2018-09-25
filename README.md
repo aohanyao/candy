@@ -1,9 +1,9 @@
-# mvp-core-library
-mvp-core-library
 
 
-Write less, Error less
+# Write less, Error less
 
+# Version
+[![](https://jitpack.io/v/aohanyao/candy.svg)](https://jitpack.io/#aohanyao/candy)
 
 
 # MVP  Template Sample
