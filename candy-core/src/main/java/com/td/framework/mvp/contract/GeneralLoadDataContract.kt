@@ -2,7 +2,6 @@ package com.td.framework.mvp.contract
 
 import com.td.framework.model.bean.CodeMsgModel
 import com.td.framework.model.bean.ListDataModel
-import com.td.framework.model.bean.ListDataModelImp
 import com.td.framework.mvp.model.BaseParamsInfo
 import com.td.framework.mvp.presenter.BasePresenter
 import com.td.framework.mvp.view.BaseView
@@ -146,22 +145,22 @@ interface GeneralLoadDataContract {
         /**
          * 转换数据结构
          */
-        protected fun mapListData(it: ListDataModelImp<T>?): ListDataModel<T> {
+        protected fun mapListData(it: ListDataModel<T>?): ListDataModel<T> {
             return object : ListDataModel<T> {
                 override val maxPage: Int
-                    get() = if (it == null || it.data == null) {
+                    get() = if (it == null || it.list == null) {
                         0
                     } else {
-                        it.data.total
+                        it.maxPage
                     }
-                override val list: List<T>
-                    get() = if (it == null || it.data == null) {
+                override var list: List<T>? = null
+                    get() = if (it == null || it.list == null) {
                         arrayListOf()
                     } else {
-                        if(it.data.data == null){
-                            it.data.data = arrayListOf()
+                        if(it.list == null){
+                            it.list = arrayListOf()
                         }
-                        it.data.data
+                        it.list!!
                     }
             }
         }
