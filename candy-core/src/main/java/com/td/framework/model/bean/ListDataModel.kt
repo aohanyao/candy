@@ -21,5 +21,5 @@ interface ListDataModel<T> {
      *
      * @return
      */
-    var list: List<T>?
+    val list: List<T>?
 }

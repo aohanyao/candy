@@ -144,23 +144,26 @@ interface GeneralLoadDataContract {
 
         /**
          * 转换数据结构
+         * @param it 必须是ListDataModel<T>的实现类
          */
-        protected fun mapListData(it: ListDataModel<T>?): ListDataModel<T> {
+        protected fun mapListData(it: Any?): ListDataModel<T> {
+            if (it !is ListDataModel<*>) {
+                throw RuntimeException("the it must is ListDataModel")
+            }
+
             return object : ListDataModel<T> {
                 override val maxPage: Int
-                    get() = if (it == null || it.list == null) {
+                    get() = if (null == it || null == it.list) {
                         0
                     } else {
                         it.maxPage
                     }
-                override var list: List<T>? = null
-                    get() = if (it == null || it.list == null) {
+                override val list: List<T>
+                    get() = if (null == it || null == it.list) {
                         arrayListOf()
                     } else {
-                        if(it.list == null){
-                            it.list = arrayListOf()
-                        }
-                        it.list!!
+
+                        it.list as List<T>
                     }
             }
         }
