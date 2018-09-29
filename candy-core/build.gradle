@@ -3,15 +3,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven'
-apply plugin: 'org.jetbrains.dokka-android'
+//apply plugin: 'org.jetbrains.dokka-android'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode 1010
-        versionName "v0.010alpha"
+        versionCode 1011
+        versionName "v0.011alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -30,87 +30,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-}
-
-// 打包源码jar
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-//编译groovy代码时采用 UTF-8
-tasks.withType(GroovyCompile) {
-    groovyOptions.encoding = "MacRoman"
-}
-
-//编译JAVA文件时采用UTF-8
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-// 打包文档jar
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-def isReleaseBuild() {
-    return true
-}
-
-def getRepositoryUsername() {
-    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
-}
-
-def getRepositoryPassword() {
-    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
-}
-
-def getRepositoryUrl() {
-    return isReleaseBuild() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL
-}
-
-afterEvaluate { project ->
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                pom.groupId = GROUP
-                pom.artifactId = POM_ARTIFACT_ID
-                pom.version = VERSION_NAME
-                repository(url: getRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
-            }
-        }
+    // 打包源码jar
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+    //编译groovy代码时采用 UTF-8
+    tasks.withType(GroovyCompile) {
+        groovyOptions.encoding = "MacRoman"
     }
 
-    dokka {
-        includes = ['Module.md']
-
-        linkMapping {
-            dir = "src/main/kotlin"
-            url = "https://github.com/JetBrains/kotlin-examples/tree/master/gradle/dokka-gradle-example/src/main/kotlin"
-            suffix = "#L"
-        }
+    //编译JAVA文件时采用UTF-8
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
     }
 
-    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-        outputFormat = "javadoc"
-        outputDirectory = "$buildDir/dokkaJavadoc"
+    task javadoc(type: Javadoc) {
+        failOnError false
+        source = android.sourceSets.main.java.sourceFiles
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        classpath += configurations.compile
     }
 
-    //解决 JavaDoc 中文注释生成失败的问题
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-        options.addStringOption('encoding', 'UTF-8')
-        options.addStringOption('charSet', 'UTF-8')
+    // 打包文档jar
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
     }
 
     artifacts {
@@ -119,86 +64,173 @@ afterEvaluate { project ->
     }
 
 }
+//
+//// 打包源码jar
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+////编译groovy代码时采用 UTF-8
+//tasks.withType(GroovyCompile) {
+//    groovyOptions.encoding = "MacRoman"
+//}
+//
+////编译JAVA文件时采用UTF-8
+//tasks.withType(JavaCompile) {
+//    options.encoding = "UTF-8"
+//}
+//
+//task javadoc(type: Javadoc) {
+//    failOnError false
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    classpath += configurations.compile
+//}
+//
+//// 打包文档jar
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//def isReleaseBuild() {
+//    return true
+//}
+//
+//def getRepositoryUsername() {
+//    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+//}
+//
+//def getRepositoryPassword() {
+//    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+//}
+//
+//def getRepositoryUrl() {
+//    return isReleaseBuild() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL
+//}
+//
+//afterEvaluate { project ->
+//    uploadArchives {
+//        repositories {
+//            mavenDeployer {
+//                pom.groupId = GROUP
+//                pom.artifactId = POM_ARTIFACT_ID
+//                pom.version = VERSION_NAME
+//                repository(url: getRepositoryUrl()) {
+//                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+//                }
+//            }
+//        }
+//    }
+//
+//    dokka {
+//        includes = ['Module.md']
+//
+//        linkMapping {
+//            dir = "src/main/kotlin"
+//            url = "https://github.com/JetBrains/kotlin-examples/tree/master/gradle/dokka-gradle-example/src/main/kotlin"
+//            suffix = "#L"
+//        }
+//    }
+//
+//    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+//        outputFormat = "javadoc"
+//        outputDirectory = "$buildDir/dokkaJavadoc"
+//    }
+//
+//    //解决 JavaDoc 中文注释生成失败的问题
+//    tasks.withType(Javadoc) {
+//        options.addStringOption('Xdoclint:none', '-quiet')
+//        options.addStringOption('encoding', 'UTF-8')
+//        options.addStringOption('charSet', 'UTF-8')
+//    }
+//
+//    artifacts {
+//        archives sourcesJar
+//        archives javadocJar
+//    }
+//
+//}
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["gson"]
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["gson"]
 
 
-    compile rootProject.ext.dependencies["eventbus"]
-    compile(rootProject.ext.dependencies["glide"]) {
+    api rootProject.ext.dependencies["eventbus"]
+    api(rootProject.ext.dependencies["glide"]) {
         exclude group: 'com.android.support'
     }
 
-    compile rootProject.ext.dependencies["multidex"]
-    compile(rootProject.ext.dependencies["Luban"]) {
+    api rootProject.ext.dependencies["multidex"]
+    api(rootProject.ext.dependencies["Luban"]) {
         exclude group: 'com.android.support'
     }
 
     /**路由*/
-    compile rootProject.ext.dependencies["arouter-api"]
+    api rootProject.ext.dependencies["arouter-api"]
     /**友盟*/
-    compile 'com.umeng.analytics:analytics:6.1.4'
+    api 'com.umeng.analytics:analytics:6.1.4'
 
     //*********************Kotlin
-    compile rootProject.ext.dependencies["kotlin-stdlib"]
+    api rootProject.ext.dependencies["kotlin-stdlib"]
     //*********************Kotlin
 
     //*********************网络相关 RX
-    compile rootProject.ext.dependencies["rxkotlin2"]
-    compile rootProject.ext.dependencies["rxpermissions2"]
+    api rootProject.ext.dependencies["rxkotlin2"]
+    api rootProject.ext.dependencies["rxpermissions2"]
 
-    compile rootProject.ext.dependencies["rxjava2"]
-    compile rootProject.ext.dependencies["retrofit2"]
-    compile rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
-    compile rootProject.ext.dependencies["retrofit-converter-gson2"]
-    compile rootProject.ext.dependencies["okhttp3-logging-interceptor"]
-    compile rootProject.ext.dependencies["rxandroid2"]
-    compile rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["rxjava2"]
+    api rootProject.ext.dependencies["retrofit2"]
+    api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    api rootProject.ext.dependencies["retrofit-converter-gson2"]
+    api rootProject.ext.dependencies["okhttp3-logging-interceptor"]
+    api rootProject.ext.dependencies["rxandroid2"]
+    api rootProject.ext.dependencies["okhttp3"]
 
-    compile rootProject.ext.dependencies["rxlifecycle2"]
-    compile rootProject.ext.dependencies["rxlifecycle-components2"]
-    compile rootProject.ext.dependencies["rxlifecycle-android2"]
+    api rootProject.ext.dependencies["rxlifecycle2"]
+    api rootProject.ext.dependencies["rxlifecycle-components2"]
+    api rootProject.ext.dependencies["rxlifecycle-android2"]
     //*********************网络相关 RX
 
-    compile rootProject.ext.dependencies["recyclerview-v7"]
-    compile rootProject.ext.dependencies["cardview-v7"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["cardview-v7"]
     /**loading view*/
-    compile rootProject.ext.dependencies["avi-loading"]
+    api rootProject.ext.dependencies["avi-loading"]
     /**recycleView适配器*/
-    compile(rootProject.ext.dependencies["BaseAdapter"]) {
+    api(rootProject.ext.dependencies["BaseAdapter"]) {
         exclude group: 'com.android.support'
     }
     /**滑动隐藏*/
-    compile(rootProject.ext.dependencies["ByeBurger"]) {
+    api(rootProject.ext.dependencies["ByeBurger"]) {
         exclude group: 'com.android.support'
     }
 
     /**指示器*/
-    compile(rootProject.ext.dependencies["circleindicator"]) {
+    api(rootProject.ext.dependencies["circleindicator"]) {
         exclude group: 'com.android.support'
     }
     /**banner*/
-    compile(rootProject.ext.dependencies["convenientbanner"]) {
+    api(rootProject.ext.dependencies["convenientbanner"]) {
         exclude group: 'com.android.support'
     }
     /**富文本*/
-    compile(rootProject.ext.dependencies["richtext"]) {
+    api(rootProject.ext.dependencies["richtext"]) {
         exclude group: 'com.android.support'
     }
 
     /*图片选择器*/
-    compile('com.github.LuckSiege.PictureSelector:picture_library:v2.2.0') {
+    api('com.github.LuckSiege.PictureSelector:picture_library:v2.2.0') {
         exclude group: 'com.android.support'
     }
 
-    compile rootProject.ext.dependencies["logger"]
+    api rootProject.ext.dependencies["logger"]
     /**拼音转换*/
-    compile rootProject.ext.dependencies["tinypinyin"]
+    api rootProject.ext.dependencies["tinypinyin"]
 
-    compile(rootProject.ext.dependencies["Android-PickerView"]) {
+    api(rootProject.ext.dependencies["Android-PickerView"]) {
         exclude group: 'com.android.support'
     }
 
