@@ -24,7 +24,9 @@ class DialogHelper private constructor(private val mActivity: Activity, private 
     private val mInflater: LayoutInflater by lazy { LayoutInflater.from(mActivity) }
     private lateinit var mDialog: AlertDialog
 
-    constructor(mActivity: Activity, onCancelListener: DialogInterface.OnCancelListener) : this(mActivity, onCancelListener, R.style.AppAlertDialogStyle) {}
+    constructor(mActivity: Activity, onCancelListener: DialogInterface.OnCancelListener)
+            : this(mActivity, onCancelListener, R.style.AppAlertDialogStyle) {
+    }
 
 
     /**
