@@ -2,16 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'maven'
-//apply plugin: 'org.jetbrains.dokka-android'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode 1015
-        versionName "v0.015alpha"
+        versionCode 1016
+        versionName "v0.016alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -62,95 +60,7 @@ android {
         archives sourcesJar
         archives javadocJar
     }
-
 }
-//
-//// 打包源码jar
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-////编译groovy代码时采用 UTF-8
-//tasks.withType(GroovyCompile) {
-//    groovyOptions.encoding = "MacRoman"
-//}
-//
-////编译JAVA文件时采用UTF-8
-//tasks.withType(JavaCompile) {
-//    options.encoding = "UTF-8"
-//}
-//
-//task javadoc(type: Javadoc) {
-//    failOnError false
-//    source = android.sourceSets.main.java.sourceFiles
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    classpath += configurations.compile
-//}
-//
-//// 打包文档jar
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//
-//def isReleaseBuild() {
-//    return true
-//}
-//
-//def getRepositoryUsername() {
-//    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
-//}
-//
-//def getRepositoryPassword() {
-//    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
-//}
-//
-//def getRepositoryUrl() {
-//    return isReleaseBuild() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL
-//}
-//
-//afterEvaluate { project ->
-//    uploadArchives {
-//        repositories {
-//            mavenDeployer {
-//                pom.groupId = GROUP
-//                pom.artifactId = POM_ARTIFACT_ID
-//                pom.version = VERSION_NAME
-//                repository(url: getRepositoryUrl()) {
-//                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-//                }
-//            }
-//        }
-//    }
-//
-//    dokka {
-//        includes = ['Module.md']
-//
-//        linkMapping {
-//            dir = "src/main/kotlin"
-//            url = "https://github.com/JetBrains/kotlin-examples/tree/master/gradle/dokka-gradle-example/src/main/kotlin"
-//            suffix = "#L"
-//        }
-//    }
-//
-//    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-//        outputFormat = "javadoc"
-//        outputDirectory = "$buildDir/dokkaJavadoc"
-//    }
-//
-//    //解决 JavaDoc 中文注释生成失败的问题
-//    tasks.withType(Javadoc) {
-//        options.addStringOption('Xdoclint:none', '-quiet')
-//        options.addStringOption('encoding', 'UTF-8')
-//        options.addStringOption('charSet', 'UTF-8')
-//    }
-//
-//    artifacts {
-//        archives sourcesJar
-//        archives javadocJar
-//    }
-//
-//}
 
 
 dependencies {
