@@ -5,6 +5,24 @@
 # Version
 [![](https://jitpack.io/v/aohanyao/candy.svg)](https://jitpack.io/#aohanyao/candy)
 
+# 1. 依赖
+> build.gradle
+
+```gradle
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+app.gradle
+```gradle
+dependencies {
+        implementation 'com.github.aohanyao:candy:version'
+	}
+```
 
 # MVP  Template Sample
 
