@@ -16,7 +16,7 @@ import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.contract.GeneralLoadDataContract
 import com.td.framework.mvp.model.BaseParamsInfo
 import com.td.framework.mvp.model.EmptyParamsInfo
-import com.td.framework.ui.adapter.CustomLoadMoreView
+import com.td.framework.ui.adapter.TdListLoadMoreView
 import com.td.framework.ui.refresh.RefreshLayout
 import java.util.*
 
@@ -29,17 +29,26 @@ import java.util.*
  * @param P P层
  * *
  * @param T 数据对象
+ *
+ * -------------------------------
+ * jc update in 2018年10月11日 16:53:11
+ * - 修改了getLoadMoreView() 可为null
+ * -
+ * -------------------------------
+ *
  **** */
 abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLoadDataPresenter<*, *, *>, T>
     : MvpBaseLoadingFragment<P>(), GeneralLoadDataContract.GeneralLoadDataView<T>, BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
-    //数据对象
+    /**数据对象*/
     protected var mDatas: MutableList<T> = ArrayList()
-    //适配器
+    /**适配器*/
     protected val mAdapter: BaseQuickAdapter<T, *>? by lazy {
         getAdapter()
     }
-    //参数对象
+    /**参数对象*/
     protected val mParam: BaseParamsInfo by lazy { getParam() }
+    /**列表加载更多的布局*/
+    protected var mListLoadMoreView: LoadMoreView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflateView(getLayoutId(), container)
@@ -56,7 +65,6 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         if (!isCreate) {
-//            p?.refreshData(mParam)
             onRefresh()
         }
     }
@@ -68,8 +76,11 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
     protected open fun initAdapter() {
         //适配器
         mAdapter?.apply {
-            setLoadMoreView(getLoadMoreView())
-            setOnLoadMoreListener(this@MvpLoadListDataBaseFragment)
+            mListLoadMoreView = getLoadMoreView()
+            mListLoadMoreView?.let {
+                setLoadMoreView(it)
+                setOnLoadMoreListener(this@MvpLoadListDataBaseFragment)
+            }
             BasicAdapterHelper.initAdapterVertical(mActivity, mAdapter, getRecyclerView(), getEmptyTip(), getListEmptyLayoutId())
             getRecyclerView()?.adapter = this
         }
@@ -80,6 +91,7 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
             override fun onSimpleItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
                 //回调
                 onRecyclerViewItemChildClick(view, position, mDatas[position])
+                onRecyclerViewItemChildClick(adapter, view, position, mDatas[position])
             }
         })
     }
@@ -88,7 +100,6 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && isCreate) {
             isCreate = false
-//            p?.refreshData(mParam)
             onRefresh()
         }
     }
@@ -154,10 +165,38 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
 
 
     /**
-     * 返回加载布局
+     * 返回列表加载布局，如果返回为空，则代表没有加载更多和加载结束的布局
+     * <p>
+     * 如果你要重写这个方法，那么请按照 R.layout.list_view_load_more
+     * 中的id进行赋值。
+     * </p>
      */
-    protected open fun getLoadMoreView(): LoadMoreView {
-        return CustomLoadMoreView()
+    protected open fun getLoadMoreView(): LoadMoreView? {
+        val loadMoreView = TdListLoadMoreView()
+        // 设置相关的数据
+
+        // 根布局
+        getListLoadMoreLayoutId()?.let { loadMoreView.layoutId = it }
+        // 根布局背景颜色
+        getListLoadMoreLayoutBackgroundColor()?.let { loadMoreView.setBackgroundColor(it) }
+
+        return loadMoreView
+    }
+
+    /**
+     * 设置加载更多布局的背景颜色,如果你要重写不同的
+     * 加载更多的背景颜色，请重写这个方法，并且返回
+     * 颜色。
+     */
+    protected open fun getListLoadMoreLayoutBackgroundColor(): Int? {
+        return null
+    }
+
+    /**
+     * 返回加载更多的布局layout
+     */
+    protected open fun getListLoadMoreLayoutId(): Int? {
+        return null
     }
 
     /**
@@ -180,8 +219,6 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
 
     /**
      * 点击事件
-
-     * @param adapter  适配器
      * *
      * @param view     点击的View
      * *
@@ -190,6 +227,21 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
      * @param data     点击的数据
      */
     protected abstract fun onRecyclerViewItemChildClick(view: View, position: Int, data: T)
+
+    /**
+     * 点击事件
+     * *
+     * @param adapter     adapter
+     * *
+     * @param view     点击的View
+     * *
+     * @param position 下标
+     * *
+     * @param data     点击的数据
+     */
+    protected open fun onRecyclerViewItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int, data: T) {
+
+    }
 
     /**
      * 获取布局ID
@@ -205,18 +257,8 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
         return ""
     }
 
-    /**
-     * 设置是否模拟
-     */
-    protected open fun getMock(): Boolean {
-        return false
-    }
 
     override fun onRefresh() {
-        if (getMock()) {
-            (getSwipeRefreshLayout() as? SwipeRefreshLayout?)?.isRefreshing = false
-        } else {
-            p?.refreshData(mParam)
-        }
+        p?.refreshData(mParam)
     }
 }

@@ -76,7 +76,7 @@ ext {
             "PictureSelector"            : "com.github.LuckSiege.PictureSelector:picture_library:v2.1.7",
             "okhttp3-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:3.6.0",
             "retrolambda"                : "me.tatarka:gradle-retrolambda:3.6.1",
-            "Android-PickerView"         : "com.contrarywind:Android-PickerView:4.1.2",
+            "Android-PickerView"         : "com.contrarywind:Android-PickerView:4.1.6",
             "mvp-core-library"           : "com.github.aohanyao:mvp-core-library:v0.2-alpha",
             "anko-commons"               : "org.jetbrains.anko:anko-commons:${android["anko_version"]}",
             "anko-sqlite"                : "org.jetbrains.anko:anko-sqlite:${android["anko_version"]}",

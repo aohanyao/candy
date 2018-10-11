@@ -17,7 +17,7 @@ import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.contract.GeneralLoadDataContract
 import com.td.framework.mvp.model.BaseParamsInfo
 import com.td.framework.mvp.model.EmptyParamsInfo
-import com.td.framework.ui.adapter.CustomLoadMoreView
+import com.td.framework.ui.adapter.TdListLoadMoreView
 import com.td.framework.ui.refresh.RefreshLayout
 import java.util.*
 
@@ -38,6 +38,10 @@ abstract class MvpLoadListDataBaseActivity<out P : GeneralLoadDataContract.Gener
     }
     //参数对象
     protected val mParam: BaseParamsInfo by lazy { getParam() }
+
+    /**列表加载更多的布局*/
+    protected var mListLoadMoreView: LoadMoreView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
@@ -63,10 +67,12 @@ abstract class MvpLoadListDataBaseActivity<out P : GeneralLoadDataContract.Gener
     protected open fun initAdapter() {
         //适配器
         mAdapter?.apply {
-            getLoadMoreView()?.apply {
-                setLoadMoreView(this)
+            mListLoadMoreView = getLoadMoreView()
+            mListLoadMoreView?.let {
+                setLoadMoreView(it)
                 setOnLoadMoreListener(this@MvpLoadListDataBaseActivity)
             }
+
             BasicAdapterHelper.initAdapter(mActivity, mAdapter,
                     getRecyclerView(), getRecyclerViewOrientation(),
                     getEmptyTip(), getListEmptyLayoutId())
@@ -105,10 +111,38 @@ abstract class MvpLoadListDataBaseActivity<out P : GeneralLoadDataContract.Gener
 
 
     /**
-     * 返回加载布局
+     * 返回列表加载布局，如果返回为空，则代表没有加载更多和加载结束的布局
+     * <p>
+     * 如果你要重写这个方法，那么请按照 R.layout.list_view_load_more
+     * 中的id进行赋值。
+     * </p>
      */
     protected open fun getLoadMoreView(): LoadMoreView? {
-        return CustomLoadMoreView()
+        val loadMoreView = TdListLoadMoreView()
+        // 设置相关的数据
+
+        // 根布局
+        getListLoadMoreLayoutId()?.let { loadMoreView.layoutId = it }
+        // 根布局背景颜色
+        getListLoadMoreLayoutBackgroundColor()?.let { loadMoreView.setBackgroundColor(it) }
+
+        return loadMoreView
+    }
+
+    /**
+     * 设置加载更多布局的背景颜色,如果你要重写不同的
+     * 加载更多的背景颜色，请重写这个方法，并且返回
+     * 颜色。
+     */
+    protected open fun getListLoadMoreLayoutBackgroundColor(): Int? {
+        return null
+    }
+
+    /**
+     * 返回加载更多的布局layout
+     */
+    protected open fun getListLoadMoreLayoutId(): Int? {
+        return null
     }
 
 

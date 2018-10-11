@@ -143,6 +143,19 @@ abstract class MvpLoadingActivity<out P> : TDBaseLoadingActivity(), DialogInterf
     }
 
     /**
+     * 显示确认信息：标题 内容 按钮文字等
+
+     * @param message                 信息
+     * *
+     * *
+     * @param onDialogConfirmListener 确认按钮点击
+     */
+    fun showConfirmDialog(message: String?,
+                          onDialogConfirmListener: (dialog: AlertDialog) -> Unit = {}) {
+        mDialogHelper.showConfirmDialog(message, "确定", "取消", onDialogConfirmListener, {})
+    }
+
+    /**
      * 关闭弹窗
      */
     protected fun dismissDialog() {
