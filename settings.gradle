@@ -1,2 +1,3 @@
-include ':app', ':candy-compiler', ':candy-annotations',
+include ':app',
+//        ':candy-compiler', ':candy-annotations',
         ':candy-core'
