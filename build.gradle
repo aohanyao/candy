@@ -6,6 +6,8 @@ buildscript {
     ext.kotlin_version = '1.2.50'
 
     repositories {
+        jcenter()
+
         maven {
             url 'https://maven.google.com/'
             name 'Google'
@@ -13,7 +15,6 @@ buildscript {
         maven { url 'https://jitpack.io' }
 //        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 
-        jcenter()
 
     }
     dependencies {
@@ -27,6 +28,8 @@ buildscript {
 
 allprojects {
     repositories {
+        jcenter()
+
         maven {
             url 'https://maven.google.com/'
             name 'Google'
@@ -34,7 +37,6 @@ allprojects {
         maven { url "https://jitpack.io" }
 //        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
 
-        jcenter()
 
 
     }

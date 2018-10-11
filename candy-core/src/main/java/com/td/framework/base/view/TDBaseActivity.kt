@@ -260,7 +260,7 @@ open class TDBaseActivity : SwipeBackActivity() {
      * @param colorPrimaryId  必须不能为空
      * @param drawableColorPrimary
      */
-    private fun initToolbar(colorPrimaryId: Int,
+    protected fun initToolbar(colorPrimaryId: Int,
                             drawableColorPrimary: Int?) {
         mToolbar?.title = ""
         if (useDarkStatusBar()) {// 使用灰色状态栏
