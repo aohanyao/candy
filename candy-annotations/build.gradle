@@ -1,0 +1,10 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies["annotations"]
+
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"

@@ -1,3 +1,5 @@
-include ':app',
+include ':app', ':candy-runtime',
+        ':candy-compiler',
+        ':candy-annotations'
 //        ':candy-compiler', ':candy-annotations',
-        ':candy-core'
+//        ':candy-core'

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="load_more_load_end_view" type="id"/>
+    <item name="tv_prompt" type="id"/>
+    <item name="load_more_load_fail_view" type="id"/>
+    <item name="loading_text" type="id"/>
+    <item name="loading_progress" type="id"/>
+    <item name="load_more_loading_view" type="id"/>
+    <item name="load_more_root" type="id"/>
+</resources>
