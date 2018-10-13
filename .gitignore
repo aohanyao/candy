@@ -15,4 +15,5 @@
 gradle/
 gradlew
 gradlew.bat
-candy.properties
+/candy.properties
+/annotations.properties

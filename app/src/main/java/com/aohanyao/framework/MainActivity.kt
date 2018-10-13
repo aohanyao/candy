@@ -4,12 +4,12 @@ import android.os.Bundle
 import com.aohanyao.framework.mvp.view.activity.TestFragmentAuthActivity
 import com.td.framework.auth.runtime.AuthBind
 import com.td.framework.base.view.TDBaseActivity
-import com.td.framework.compile.annotations.AuthView
+import com.td.framework.annotations.auth.AuthenticationView
 import com.td.framework.expand.launcherActivity
 import com.td.framework.utils.StatusBarModeUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
-@AuthView(ids = [R.id.btnNextPage, R.id.tvText],
+@AuthenticationView(ids = [R.id.btnNextPage, R.id.tvText],
         authCodes = ["A005", "A016"])
 class MainActivity : TDBaseActivity() {
 

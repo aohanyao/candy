@@ -1,4 +1,4 @@
-package com.td.framework.compile.annotations;
+package com.td.framework.annotations.auth;
 
 import android.support.annotation.IdRes;
 
@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-public @interface AuthView {
+public @interface AuthenticationView {
     /**
      * 需要进行权限验证的View
      */

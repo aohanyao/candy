@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.aohanyao.framework.R
 import com.td.framework.auth.runtime.AuthBind
 import com.td.framework.base.view.TDBaseFragment
-import com.td.framework.compile.annotations.AuthView
+import com.td.framework.annotations.auth.AuthenticationView
 
 /**
  * Created on 2018-10-13 9:51:15
@@ -15,7 +15,7 @@ import com.td.framework.compile.annotations.AuthView
  * @version:1.0
  * Description:测试权限的Fragment
  */
-@AuthView(ids = [R.id.mA006, R.id.mA017], authCodes = ["A006", "A017"])
+@AuthenticationView(ids = [R.id.mA006, R.id.mA017], authCodes = ["A006", "A017"])
 class BlankAuthFragment : TDBaseFragment() {
 
 

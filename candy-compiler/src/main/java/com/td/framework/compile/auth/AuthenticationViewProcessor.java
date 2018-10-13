@@ -5,7 +5,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
-import com.td.framework.compile.annotations.AuthView;
+import com.td.framework.annotations.auth.AuthenticationView;
 
 import java.io.IOException;
 import java.util.LinkedHashSet;
@@ -30,7 +30,7 @@ import javax.tools.Diagnostic;
  * 权限注解处理器
  */
 @AutoService(Processor.class)
-public class AuthViewProcessor extends AbstractProcessor {
+public class AuthenticationViewProcessor extends AbstractProcessor {
     private Types mTypeUtils;
     private Elements mElementUtils;
     private Filer mFiler;
@@ -67,7 +67,7 @@ public class AuthViewProcessor extends AbstractProcessor {
     public Set<String> getSupportedAnnotationTypes() {
         //支持的注解
         Set<String> annotations = new LinkedHashSet<>();
-        annotations.add(AuthView.class.getCanonicalName());
+        annotations.add(AuthenticationView.class.getCanonicalName());
         return annotations;
     }
 
@@ -75,7 +75,7 @@ public class AuthViewProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {//这里开始处理我们的注解解析了，以及生成Java文件
 
 
-        Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(AuthView.class);
+        Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(AuthenticationView.class);
 
         if (elements == null || elements.isEmpty()) {
             info("没有找到相关注解");
@@ -96,7 +96,7 @@ public class AuthViewProcessor extends AbstractProcessor {
      */
     private void handlerAnnotated(Element classElement) {
         // 获取到注解
-        AuthView annotation = classElement.getAnnotation(AuthView.class);
+        AuthenticationView annotation = classElement.getAnnotation(AuthenticationView.class);
         // 获取到权限code
         String[] authCodes = annotation.authCodes();
         // 获取到View Id
