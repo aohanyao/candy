@@ -5,6 +5,6 @@
 
     <string name="title_activity_test">测试Activity</string>
 
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main2">Fragment权限测试</string>
     <string name="title_activity_main3">Main3Activity</string>
 </resources>

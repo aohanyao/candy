@@ -21,7 +21,7 @@
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.ToolbarHeight" />
         <activity
-            android:name=".mvp.view.activity.Main2Activity"
+            android:name=".mvp.view.activity.TestFragmentAuthActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.ToolbarHeight" />
         <activity
