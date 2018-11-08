@@ -12,6 +12,7 @@ import android.support.annotation.StringRes
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.Toolbar
 import android.util.Pair
 import android.view.View
@@ -30,6 +31,7 @@ import com.td.framework.utils.T
 import com.td.framework.utils.amin.JumpAnimUtils
 import com.td.framework.utils.statusbar.StatusBarModeUtil
 import com.td.framework.utils.statusbar.StatusBarUtil
+import com.trello.rxlifecycle2.RxLifecycle.bindUntilEvent
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.umeng.analytics.MobclickAgent
 import io.reactivex.FlowableTransformer
@@ -80,8 +82,8 @@ open class TDBaseActivity : SwipeBackActivity() {
     protected open var subscribe: Disposable? = null
 
     override protected fun onCreate(savedInstanceState: Bundle?) {
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         isCreate = true
         mAppManager.addOnStartActivity(this)
@@ -91,7 +93,7 @@ open class TDBaseActivity : SwipeBackActivity() {
             } catch (e: Exception) {
             }
         }
-        if (usSwipeBack()) initSwipeActivity()
+        setSwipeBackEnable(usSwipeBack())
     }
 
     //2018年3月7日增加

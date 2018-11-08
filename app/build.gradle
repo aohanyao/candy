@@ -53,7 +53,7 @@ kapt {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-//    api project(':candy-core')
+    api project(':candy-core')
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     api rootProject.ext.dependencies["kotlin-stdlib"]
     implementation rootProject.ext.dependencies["design"]
@@ -67,12 +67,12 @@ dependencies {
     //
     //--------------生命周期绑定
 //        implementation 'com.github.aohanyao:mvp-ui-library:v0.5-alpha'
-        api 'com.github.aohanyao:candy:v0.019alpha'
+//        api 'com.github.aohanyao:candy:v0.019alpha'
     kapt rootProject.ext.dependencies["arouter-compiler"]
 //        implementation 'com.td.framework:candy:0.010'
-    implementation project(':candy-annotations')
-    kapt project(':candy-compiler')
-    implementation project(':candy-runtime')
+//    implementation project(':candy-annotations')
+//    kapt project(':candy-compiler')
+//    implementation project(':candy-runtime')
 }
 repositories {
     mavenCentral()

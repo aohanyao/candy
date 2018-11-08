@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.aohanyao.framework.R
-import com.td.framework.auth.runtime.AuthBind
 import com.td.framework.base.view.TDBaseFragment
-import com.td.framework.annotations.auth.AuthenticationView
 
 /**
  * Created on 2018-10-13 9:51:15
@@ -15,7 +13,7 @@ import com.td.framework.annotations.auth.AuthenticationView
  * @version:1.0
  * Description:测试权限的Fragment
  */
-@AuthenticationView(ids = [R.id.mA006, R.id.mA017], authCodes = ["A006", "A017"])
+//@AuthenticationView(ids = [R.id.mA006, R.id.mA017], authCodes = ["A006", "A017"])
 class BlankAuthFragment : TDBaseFragment() {
 
 
@@ -26,7 +24,7 @@ class BlankAuthFragment : TDBaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AuthBind.bind(this)
+//        AuthBind.bind(this)
     }
 
     companion object {

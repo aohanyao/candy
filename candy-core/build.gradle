@@ -34,125 +34,41 @@ android {
     }
     //-----------------------------------------jakpt配置
     // 打包源码jar
-    task sourcesJar(type: Jar) {
-        from android.sourceSets.main.java.srcDirs
-        classifier = 'sources'
-    }
-    //编译groovy代码时采用 UTF-8
-    tasks.withType(GroovyCompile) {
-        groovyOptions.encoding = "MacRoman"
-    }
-
-    //编译JAVA文件时采用UTF-8
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
-    }
-
-    task javadoc(type: Javadoc) {
-        failOnError false
-        source = android.sourceSets.main.java.sourceFiles
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-        classpath += configurations.compile
-    }
-
-    // 打包文档jar
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
-
-    artifacts {
-        archives sourcesJar
-        archives javadocJar
-    }
-    //-----------------------------------------jakpt配置
-}
-//--------------------------------------------私服配置
-
-//// 打包源码jar
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-////编译groovy代码时采用 UTF-8
-//tasks.withType(GroovyCompile) {
-//    groovyOptions.encoding = "MacRoman"
-//}
-//
-////编译JAVA文件时采用UTF-8
-//tasks.withType(JavaCompile) {
-//    options.encoding = "UTF-8"
-//}
-//
-//task javadoc(type: Javadoc) {
-//    failOnError false
-//    source = android.sourceSets.main.java.sourceFiles
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    classpath += configurations.compile
-//}
-//
-//// 打包文档jar
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//
-//
-//def getRepositoryUsername() {
-//    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
-//}
-//
-//def getRepositoryPassword() {
-//    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
-//}
-//
-//def getRepositoryUrl() {
-//    return IS_RELEASE_BUILD.toBoolean() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL
-//}
-//
-//afterEvaluate { project ->
-//    uploadArchives {
-//        repositories {
-//            mavenDeployer {
-//                pom.groupId = GROUP
-//                pom.artifactId = POM_ARTIFACT_ID
-//                pom.version = IS_RELEASE_BUILD.toBoolean() ? RELEASES_VERSION_NAME : SNAPSHOT_VERSION_NAME
-//                repository(url: getRepositoryUrl()) {
-//                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-//                }
-//            }
-//        }
+//    task sourcesJar(type: Jar) {
+//        from android.sourceSets.main.java.srcDirs
+//        classifier = 'sources'
+//    }
+//    //编译groovy代码时采用 UTF-8
+//    tasks.withType(GroovyCompile) {
+//        groovyOptions.encoding = "MacRoman"
 //    }
 //
-//    dokka {
-//        includes = ['Module.md']
-//
-//        linkMapping {
-//            dir = "src/main/kotlin"
-//            url = "https://github.com/JetBrains/kotlin-examples/tree/master/gradle/dokka-gradle-example/src/main/kotlin"
-//            suffix = "#L"
-//        }
+//    //编译JAVA文件时采用UTF-8
+//    tasks.withType(JavaCompile) {
+//        options.encoding = "UTF-8"
 //    }
 //
-//    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-//        outputFormat = "javadoc"
-//        outputDirectory = "$buildDir/dokkaJavadoc"
+//    task javadoc(type: Javadoc) {
+//        failOnError false
+//        source = android.sourceSets.main.java.sourceFiles
+//        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//        classpath += configurations.compile
 //    }
 //
-//    //解决 JavaDoc 中文注释生成失败的问题
-//    tasks.withType(Javadoc) {
-//        options.addStringOption('Xdoclint:none', '-quiet')
-//        options.addStringOption('encoding', 'UTF-8')
-//        options.addStringOption('charSet', 'UTF-8')
+//    // 打包文档jar
+//    task javadocJar(type: Jar, dependsOn: javadoc) {
+//        classifier = 'javadoc'
+//        from javadoc.destinationDir
 //    }
 //
 //    artifacts {
 //        archives sourcesJar
 //        archives javadocJar
 //    }
-//
-//}
+    //-----------------------------------------jakpt配置
+}
 //--------------------------------------------私服配置
+
 
 
 
