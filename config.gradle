@@ -5,7 +5,7 @@ ext {
                targetSdkVersion        : 26,
                versionCode             : 100,
                versionName             : "1.0.0",
-               androidSupportSdkVersion: "26.0.2",
+               androidSupportSdkVersion: "26.1.0",
                retrofitSdkVersion      : "2.3.0",
                rxlifecycle             : "1.0",
                anko_version            : "0.10.1",

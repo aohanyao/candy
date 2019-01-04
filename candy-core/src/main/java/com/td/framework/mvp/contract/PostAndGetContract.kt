@@ -3,6 +3,7 @@ package com.td.framework.mvp.contract
 import com.td.framework.biz.NetError
 import com.td.framework.model.bean.BaseDataModel
 import com.td.framework.model.bean.CodeMsgModel
+import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.model.BaseParamsInfo
 import com.td.framework.mvp.presenter.BasePresenter
 import com.td.framework.mvp.view.BaseView
@@ -60,7 +61,7 @@ interface PostAndGetContract {
             //取消前一次请求
             unSubscribe()
             //开始请求
-            request(getDataObservable(params)) {
+            request(getDataObservable(params),RequestType.GET) {
                 if (it != null) {
                     if (it.code == 200) {
                         completeGet(it.data)
@@ -131,7 +132,7 @@ interface PostAndGetContract {
             //取消前一次请求
             unSubscribe()
             //开始请求
-            request(getDataObservable(params)) {
+            request(getDataObservable(params),RequestType.GET) {
                 if (it != null) {
                     if (it.code == 200) {
                         completeGet(it.data)
@@ -158,7 +159,7 @@ interface PostAndGetContract {
             //取消前一次请求
             unSubscribe()
             //开启请求
-            request(postDataObservable(params)) {
+            request(postDataObservable(params),RequestType.POST) {
                 v.complete("")
                 //判断是否为空
                 if (it != null) {

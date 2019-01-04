@@ -111,7 +111,7 @@ abstract class MvpLoadListDataBaseFragment<P : GeneralLoadDataContract.GeneralLo
 
     override fun handlerFail(error: NetError) {
         //判断是不是加载更多
-        if (error.requestType == RequestType.LOAD_MORE) {
+        if (error.requestType == RequestType.LOAD_MORE_LIST) {
             //加载失败
             mAdapter?.loadMoreFail()
         } else {

@@ -42,29 +42,13 @@ public class NetError extends IOException {
     /*无法找到*/
     public static final int NOT_FOUND = 404;
 
-    //--------------------请求类型----------------
     /**
      * 请求类型
      */
     private int requestType;
-    /**
-     * 提交数据
-     */
-    public static final int POST = 1;
-    /**
-     * 获取数据
-     */
-    public static final int GET = 2;
-    /**
-     * 刷新列表
-     */
-    public static final int REFRESH = 3;
-    /**
-     * 加载更多列表
-     */
-    public static final int LOAD_MORE = 4;
 
-    //--------------------请求类型----------------
+
+
 
 
     public NetError(Throwable exception, int mErrorType) {
@@ -147,4 +131,6 @@ public class NetError extends IOException {
     public int getErrorType() {
         return mErrorType;
     }
+
+
 }

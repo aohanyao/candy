@@ -22,7 +22,7 @@ import com.td.framework.mvp.presenter.BasePresenter
  * MVPFramgnrt
  */
 abstract class MvpBaseFragment<P> : TDBaseLoadingFragment(),
-        DialogInterface.OnCancelListener{
+        DialogInterface.OnCancelListener {
     protected var p: P? = null
     protected val mDialogHelper: DialogHelper by lazy {
         DialogHelper(mActivity, this)
@@ -97,8 +97,12 @@ abstract class MvpBaseFragment<P> : TDBaseLoadingFragment(),
         if (error.errorType == NetError.ConnectExceptionError ||
                 error.errorType == NetError.SocketTimeoutError ||
                 error.errorType == NetError.HttpException) {
-            showRetry()
+            // 需要是Get请求的，才会显示网络情况
+            if (error.requestType == RequestType.GET) {
+                showRetry()
+            }
         } else if (error.errorType == NetError.LOGIN_OUT || message!!.contains("登陆失效")) {
+
             showRetry()
 
             if (!TextUtils.isEmpty(message)) {
@@ -115,6 +119,7 @@ abstract class MvpBaseFragment<P> : TDBaseLoadingFragment(),
             }
         }
     }
+
     /**
      * 显示成功窗口
      */
@@ -174,6 +179,7 @@ abstract class MvpBaseFragment<P> : TDBaseLoadingFragment(),
         //显示弹窗
         mDialogHelper.showTipDialog(title, message, {})
     }
+
     /**
      * 完成  弹出信息和关闭弹窗等
 

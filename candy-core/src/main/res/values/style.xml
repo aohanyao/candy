@@ -11,6 +11,7 @@
         <item name="android:typeface">sans</item>
         <!--toolbar内的控件（自定义的或者系统预置的如标题）距离NavigationIcon和屏幕左边的距离，类似marginStart-->
         <item name="actionMenuTextColor">#999999</item>
+        <item name="android:screenOrientation">portrait</item>
 
     </style>
 
@@ -18,6 +19,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
 
@@ -30,6 +32,7 @@
              animations) because we really have no idea how this kind of
              activity will be used. -->
         <!--<item name="windowAnimationStyle">@style/Animation</item>-->
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
     <style name="AppBarLayoutStyle">
@@ -85,6 +88,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="toolbarNavigationButtonStyle">@style/mToolbarNavigationButtonStyle</item>
+        <item name="android:screenOrientation">portrait</item>
         <!--NavigationIcon的宽度-->
         <item name="toolbarStyle">@style/BaseToolbarStyle</item>
     </style>

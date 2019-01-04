@@ -1,6 +1,7 @@
 package com.td.framework.mvp.contract
 
 import com.td.framework.model.bean.CodeMsgModel
+import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.model.BaseParamsInfo
 import com.td.framework.mvp.presenter.BasePresenter
 import com.td.framework.mvp.view.BaseView
@@ -51,7 +52,7 @@ interface PostContract {
                 //取消前一次请求
                 unSubscribe()
                 //开始请求
-                request(this) {
+                request(this, RequestType.POST) {
                     v.complete("")
                     if (it != null && it.code == 200) {
                         v.postSuccess()

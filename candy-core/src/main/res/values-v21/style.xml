@@ -10,7 +10,7 @@
         <item name="toolbarNavigationButtonStyle">@style/mToolbarNavigationButtonStyle</item>
         <item name="android:windowContentTransitions">true</item>
         <!--NavigationIcon的宽度-->
-
+        <item name="android:screenOrientation">portrait</item>
         <item name="toolbarStyle">@style/BaseToolbarStyle</item>
     </style>
 
@@ -32,6 +32,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
 

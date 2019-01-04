@@ -1,7 +1,9 @@
 package com.td.framework.mvp.contract
 
 import com.td.framework.model.bean.CodeMsgModel
+import com.td.framework.model.bean.FormListDataModel
 import com.td.framework.model.bean.ListDataModel
+import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.model.BaseParamsInfo
 import com.td.framework.mvp.presenter.BasePresenter
 import com.td.framework.mvp.view.BaseView
@@ -82,13 +84,13 @@ interface GeneralLoadDataContract {
          * 自动判断PageSize和PageIndex
          * 可覆写getPageSize() 方法 设置页大小
          */
-        fun refreshData(params: @UnsafeVariance RP) {
+        open fun refreshData(params: @UnsafeVariance RP) {
             //页码
             mPagerIndex = 1
             //取消前一次请求
             unSubscribe()
             //开始请求
-            request(getRequestDataObservable(params)) {
+            request(getRequestDataObservable(params), RequestType.REFRESH_LIST) {
                 //强转类型
                 val list = it?.list ?: arrayListOf()
                 //返回数据
@@ -105,13 +107,13 @@ interface GeneralLoadDataContract {
          * 自动判断PageSize和PageIndex
          * 可覆写getPageSize() 方法 设置页大小
          */
-        fun loadMoreData(params: @UnsafeVariance RP) {
+        open fun loadMoreData(params: @UnsafeVariance RP) {
             //页码
             mPagerIndex++
             //取消前一次请求
             unSubscribe()
             //开始请求
-            request(getRequestDataObservable(params)) {
+            request(getRequestDataObservable(params), RequestType.LOAD_MORE_LIST) {
                 //强转类型
                 val list = it?.list ?: arrayListOf()
                 //返回数据
@@ -126,12 +128,12 @@ interface GeneralLoadDataContract {
         /**
          * 提交数据
          */
-        fun <TRP : BaseParamsInfo> commitData(param: TRP) {
+        open fun <TRP : BaseParamsInfo> commitData(param: TRP) {
             //取消请求
             unSubscribe()
             //开始请求
             getCommitDataObservable(param)?.apply {
-                request(this) {
+                request(this, RequestType.POST) {
                     v.complete("")
                     if (it?.code == 200) {
                         v.commitDataSuccess()
@@ -153,7 +155,7 @@ interface GeneralLoadDataContract {
 
             return object : ListDataModel<T> {
                 override val maxPage: Int
-                    get() = if (null == it || null == it.list) {
+                    get() = if (it?.list == null) {
                         0
                     } else {
                         it.maxPage
@@ -182,4 +184,52 @@ interface GeneralLoadDataContract {
         }
     }
 
+    /**
+     * 通用的加载数据P层
+     * @param V View 层，必须继承GeneralLoadDataView
+     * @param T 数据对象
+     * */
+    abstract class GeneralFormDataPresenter<V : GeneralLoadDataView<*>, T,
+            out RP : BaseParamsInfo>(view: V) : GeneralLoadDataPresenter<V, T, RP>(view) {
+        /**
+         * 刷新数据
+         *
+         */
+        override fun refreshData(params: @UnsafeVariance RP) {
+            //取消前一次请求
+            unSubscribe()
+            //开始请求
+            request(getRequestFormDataObservable(params), RequestType.REFRESH_LIST) {
+                if (it?.code == 200) {
+                    //强转类型
+                    val list = it?.data ?: arrayListOf()
+                    //返回数据
+                    v.refreshSuccess(list)
+                    v.noMore()
+                } else {
+                    v.noMore()
+                }
+            }
+        }
+
+        /**
+         *
+         * 自动判断PageSize和PageIndex
+         * 可覆写getPageSize() 方法 设置页大小
+         */
+        override fun loadMoreData(params: @UnsafeVariance RP) {
+            refreshData(params)
+        }
+
+
+        /**
+         * 请返回获取数据的Observable
+         * @return
+         */
+        protected abstract fun getRequestFormDataObservable(params: @UnsafeVariance RP): Flowable<FormListDataModel<T>>?
+
+        override fun getRequestDataObservable(params: @UnsafeVariance RP): Flowable<ListDataModel<T>>? {
+            return null
+        }
+    }
 }

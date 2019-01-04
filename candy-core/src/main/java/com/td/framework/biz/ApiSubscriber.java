@@ -2,6 +2,7 @@ package com.td.framework.biz;
 
 import com.google.gson.JsonParseException;
 import com.td.framework.global.app.App;
+import com.td.framework.mvp.comm.RequestType;
 import com.td.framework.mvp.view.BaseView;
 import com.td.framework.utils.DateUtils;
 import com.td.framework.utils.FileUtil;
@@ -28,6 +29,7 @@ import retrofit2.HttpException;
  */
 public abstract class ApiSubscriber<T> extends ResourceSubscriber<T> {
     private BaseView v;
+    private int mRequestType = RequestType.UNDFINE;
 
     private ApiSubscriber() {
     }
@@ -39,6 +41,16 @@ public abstract class ApiSubscriber<T> extends ResourceSubscriber<T> {
      */
     public ApiSubscriber(BaseView v) {
         this.v = v;
+    }
+
+    /**
+     * 使用这个构造函数时候 将错误提示交给 v来处理
+     *
+     * @param v
+     */
+    public ApiSubscriber(BaseView v, int requestType) {
+        this.v = v;
+        this.mRequestType = requestType;
     }
 
     public ApiSubscriber(Subscriber<?> subscriber, BaseView v) {
@@ -85,6 +97,7 @@ public abstract class ApiSubscriber<T> extends ResourceSubscriber<T> {
                     return;
                 }//
             }
+            error.setRequestType(mRequestType);
             if (v != null) {
                 v.onFail(error);
             } else {

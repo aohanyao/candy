@@ -1,6 +1,7 @@
 package com.td.framework.mvp.contract
 
 import com.td.framework.model.bean.BaseDataModel
+import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.model.BaseParamsInfo
 import com.td.framework.mvp.presenter.BasePresenter
 import com.td.framework.mvp.view.BaseView
@@ -47,7 +48,7 @@ interface GetContract {
                 //取消前一次请求
                 unSubscribe()
                 //开始请求
-                request(this) {
+                request(this, RequestType.GET) {
                     if (it != null && it.code == 200) {
                         completeRequest(it.data)
                         v.getSuccess(it.data)

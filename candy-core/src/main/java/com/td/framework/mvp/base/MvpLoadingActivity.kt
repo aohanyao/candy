@@ -79,7 +79,8 @@ abstract class MvpLoadingActivity<out P> : TDBaseLoadingActivity(), DialogInterf
             NetError.SocketTimeoutError,
             NetError.UknownError,
             NetError.HttpException -> {
-                showRetry()
+                if (error.requestType == RequestType.GET)
+                    showRetry()
                 if (!TextUtils.isEmpty(message)) {
                     mDialogHelper.showMessageDialog(message)
                 }

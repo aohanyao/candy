@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 
 // 私服配置
-apply plugin: 'org.jetbrains.dokka-android'
+//apply plugin: 'org.jetbrains.dokka-android'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -68,7 +68,91 @@ android {
     //-----------------------------------------jakpt配置
 }
 //--------------------------------------------私服配置
-
+//
+//// 打包源码jar
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+////编译groovy代码时采用 UTF-8
+//tasks.withType(GroovyCompile) {
+//    groovyOptions.encoding = "MacRoman"
+//}
+//
+////编译JAVA文件时采用UTF-8
+//tasks.withType(JavaCompile) {
+//    options.encoding = "UTF-8"
+//}
+//
+//task javadoc(type: Javadoc) {
+//    failOnError false
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    classpath += configurations.compile
+//}
+//
+//// 打包文档jar
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//
+//def getRepositoryUsername() {
+//    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+//}
+//
+//def getRepositoryPassword() {
+//    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+//}
+//
+//def getRepositoryUrl() {
+//    return IS_RELEASE_BUILD.toBoolean() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL
+//}
+//
+//afterEvaluate { project ->
+//    uploadArchives {
+//        repositories {
+//            mavenDeployer {
+//                pom.groupId = 'com.td.framework'
+//                pom.artifactId = 'candy'
+//                pom.version = IS_RELEASE_BUILD.toBoolean() ? RELEASES_VERSION_NAME : SNAPSHOT_VERSION_NAME
+//                repository(url: getRepositoryUrl()) {
+//                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+//                }
+//            }
+//        }
+//    }
+//
+//    dokka {
+//        includes = ['Module.md']
+//
+//        linkMapping {
+//            dir = "src/main/kotlin"
+//            url = "https://github.com/JetBrains/kotlin-examples/tree/master/gradle/dokka-gradle-example/src/main/kotlin"
+//            suffix = "#L"
+//        }
+//    }
+//
+//    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+//        outputFormat = "javadoc"
+//        outputDirectory = "$buildDir/dokkaJavadoc"
+//    }
+//
+//    //解决 JavaDoc 中文注释生成失败的问题
+//    tasks.withType(Javadoc) {
+//        options.addStringOption('Xdoclint:none', '-quiet')
+//        options.addStringOption('encoding', 'UTF-8')
+//        options.addStringOption('charSet', 'UTF-8')
+//    }
+//
+//    artifacts {
+//        archives sourcesJar
+//        archives javadocJar
+//    }
+//
+//}
+//--------------------------------------------私服配置
 
 
 
@@ -116,6 +200,7 @@ dependencies {
 
     api rootProject.ext.dependencies["recyclerview-v7"]
     api rootProject.ext.dependencies["cardview-v7"]
+    api rootProject.ext.dependencies["constraint-layout"]
     /**loading view*/
     api rootProject.ext.dependencies["avi-loading"]
     /**recycleView适配器*/

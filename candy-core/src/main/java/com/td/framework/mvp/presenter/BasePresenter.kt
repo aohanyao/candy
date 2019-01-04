@@ -17,6 +17,7 @@
 package com.td.framework.mvp.presenter
 
 import com.td.framework.biz.ApiSubscriber
+import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.view.BaseView
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.android.FragmentEvent
@@ -51,18 +52,27 @@ abstract class BasePresenter<V>(val v: V) {
     /**
      * 开始请求
      */
+    @Deprecated("这个请求将不再使用，请使用：request(request: Flowable<T>?, requestType: Int = NetError.RequestType.UNDFINE,\n" +
+            "result: (T?) -> Unit)", ReplaceWith("request(request, NetError.RequestType.UNDFINE, result)", "com.td.framework.biz.NetError"))
     protected fun <T> request(request: Flowable<T>?, result: (T?) -> Unit) {
+        request(request, RequestType.UNDFINE, result)
+    }
+
+    /**
+     * 开始请求
+     */
+    protected fun <T> request(request: Flowable<T>?, requestType: Int = RequestType.UNDFINE,
+                              result: (T?) -> Unit) {
         subscribe = request?.compose(this.getCompose())
-                ?.subscribeWith(object : ApiSubscriber<T>(v as BaseView) {
+                ?.subscribeWith(object : ApiSubscriber<T>(v as BaseView, requestType) {
                     override fun onNext(t: T?) {
-                            result.invoke(t)
+                        result.invoke(t)
                     }
 
                 })
     }
 
-
-    fun mapToParams(param:Any): Map<String, String> {
+    fun mapToParams(param: Any): Map<String, String> {
         //创建参数集合
         val mParamsMap = WeakHashMap<String, String>()
         //获取反射
@@ -70,6 +80,7 @@ abstract class BasePresenter<V>(val v: V) {
 
         return mParamsMap
     }
+
     /**
      * 已订阅，暂留，用来做后续的优化
      */

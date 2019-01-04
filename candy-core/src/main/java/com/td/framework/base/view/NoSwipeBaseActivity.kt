@@ -3,6 +3,7 @@ package com.td.framework.base.view
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
@@ -54,6 +55,7 @@ open class NoSwipeBaseActivity : RxAppCompatActivity() {
         super.onCreate(savedInstanceState)
         mAppManager.addOnStartActivity(this)
         if (useEventBus()) EventBus.getDefault().register(this)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     override fun getResources(): Resources {
