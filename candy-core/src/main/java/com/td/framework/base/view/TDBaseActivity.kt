@@ -12,13 +12,10 @@ import android.support.annotation.StringRes
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.Toolbar
 import android.util.Pair
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import com.td.framework.R
 import com.td.framework.global.app.AppManager
@@ -31,7 +28,6 @@ import com.td.framework.utils.T
 import com.td.framework.utils.amin.JumpAnimUtils
 import com.td.framework.utils.statusbar.StatusBarModeUtil
 import com.td.framework.utils.statusbar.StatusBarUtil
-import com.trello.rxlifecycle2.RxLifecycle.bindUntilEvent
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.umeng.analytics.MobclickAgent
 import io.reactivex.FlowableTransformer
@@ -263,7 +259,7 @@ open class TDBaseActivity : SwipeBackActivity() {
      * @param drawableColorPrimary
      */
     protected fun initToolbar(colorPrimaryId: Int,
-                            drawableColorPrimary: Int?) {
+                              drawableColorPrimary: Int?) {
         mToolbar?.title = ""
         if (useDarkStatusBar()) {// 使用灰色状态栏
             mToolbar?.setNavigationIcon(R.drawable.ic_chevron_left_gray_24dp)
@@ -290,33 +286,13 @@ open class TDBaseActivity : SwipeBackActivity() {
                 params.height = (getAppBarLayoutHeight() + statusBarHeight).toInt()
                 //设置padding 不使用纯色的时候，padding去除
                 appBarLayout.setPadding(0, statusBarHeight, 0, 0)
+                // 设置沉浸
+                // 魅族这里需要先设置沉浸，才能设置颜色模式
+                StatusBarUtil.setTranslucentForImageView(mActivity, 0, null)
                 //设置颜色模式
-                StatusBarModeUtil.setStatusTextColor(useDarkStatusBar(), mActivity)
-                if (!useDarkStatusBar()) {
-                    StatusBarUtil.setTranslucentForImageView(mActivity, 0, null)
-                }
+                StatusBarModeUtil.StatusBarLightMode(mActivity)
                 //布局参数的更改
                 appBarLayout.layoutParams = params
-                // 增加状态栏占位图 start
-                (findViewById(R.id.base_root_toolbar) as? RelativeLayout?)?.apply {
-                    val statusBarView = LinearLayout(mActivity)
-                    //创建布局参数
-                    val statusBarParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT)
-                    //设置布局参数
-                    statusBarView.layoutParams = statusBarParams
-
-                    statusBarView.setBackgroundColor(ThemHelper.getPrimaryColor())
-//                    statusBarView.setBackgroundColor(0xff03a4f9.toInt())
-                    statusBarView.visibility = View.GONE
-                    addView(statusBarView)
-                    appBarLayout.addOnOffsetChangedListener { _, verticalOffset ->
-                        //                        L.e("verticalOffset:$verticalOffset")
-
-                        statusBarView.visibility = if (verticalOffset < -statusBarHeight) View.VISIBLE else View.GONE
-                    }
-                }
-                // 增加状态栏占位图 end
 
                 // 使用drawable類型的背景
                 if (drawableColorPrimary == null) {
@@ -409,7 +385,6 @@ open class TDBaseActivity : SwipeBackActivity() {
         super.onBackPressed()
         slideLeftOut()
     }
-
 
 
     /**
