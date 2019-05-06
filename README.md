@@ -3,6 +3,8 @@
 # Write less, Error less
 
 # Version
+版本暂时创建失败，具体细节可看 [wiki](https://github.com/aohanyao/candy/wiki)
+
 [![](https://jitpack.io/v/aohanyao/candy.svg)](https://jitpack.io/#aohanyao/candy)
 
 # 1. 依赖
