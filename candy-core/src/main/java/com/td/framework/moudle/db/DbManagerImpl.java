@@ -20,7 +20,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.os.Build;
 
-
 import com.td.framework.ex.DbException;
 import com.td.framework.global.app.App;
 import com.td.framework.moudle.db.sqlite.SqlInfo;

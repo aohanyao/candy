@@ -1,8 +1,8 @@
 package com.td.framework.mvp.base
 
 import android.content.DialogInterface
-import android.support.annotation.StringRes
-import android.support.v7.app.AlertDialog
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import android.text.TextUtils
 import com.alibaba.android.arouter.launcher.ARouter
 import com.td.framework.base.view.TDBaseActivity

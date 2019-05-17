@@ -3,7 +3,6 @@ package com.td.framework.moudle.db.table;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-
 import com.td.framework.ex.DbException;
 import com.td.framework.moudle.db.DbManager;
 import com.td.framework.moudle.db.sqlite.SqlInfo;

@@ -35,6 +35,7 @@ object ThemHelper {
 
     private val PARTY_PRIMARY = "party_primary"
     private val PARTY_PRIMARY_DARK = "party_primary_dark"
+    private val USE_DARK_STATUS_BAR = "use_Dark_Status_Bar"
 
 
     /**
@@ -66,6 +67,23 @@ object ThemHelper {
 
 
         return defaultColor
+    }
+
+
+    /**
+     * 是否使用黑色主题
+     * <p>灰色的状态栏图标
+     */
+    fun setUseDarkStatusBar(dark: Boolean) {
+        SPUtils.put(App.newInstance(), USE_DARK_STATUS_BAR, dark)
+    }
+
+
+    /**
+     * 获取设置状态栏的颜色
+     */
+    fun getUseDarkStatusBar(): Boolean {
+        return SPUtils.get(App.newInstance(), USE_DARK_STATUS_BAR, false) as? Boolean ?: false
     }
 
     /**

@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.td.framework.ui.swipebacklayout.SwipeBackLayout;
 import com.td.framework.ui.swipebacklayout.SwipeBackUtils;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 
 
 /**

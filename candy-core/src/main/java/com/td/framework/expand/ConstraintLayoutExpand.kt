@@ -1,7 +1,8 @@
 package com.td.framework.expand
 
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+
 
 /**
  * Created by gongziyi on 2018/11/5

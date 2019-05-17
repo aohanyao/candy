@@ -17,7 +17,6 @@ package com.td.framework.moudle.db.table;
 
 import android.database.Cursor;
 
-
 import com.td.framework.moudle.db.annotation.Column;
 import com.td.framework.moudle.db.converter.ColumnConverter;
 import com.td.framework.moudle.db.converter.ColumnConverterFactory;

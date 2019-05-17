@@ -1,7 +1,7 @@
 package com.td.framework.global.helper
 
 import android.app.Activity
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.widget.Button

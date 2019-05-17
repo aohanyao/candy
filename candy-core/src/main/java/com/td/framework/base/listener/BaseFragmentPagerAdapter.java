@@ -1,7 +1,8 @@
 package com.td.framework.base.listener;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * <p>所有ViewPager的适配器</p>
  */
 
-public class BaseFragmentPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
+public class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments;
     private String[] mTitles;
 

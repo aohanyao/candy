@@ -17,20 +17,20 @@
 package com.td.framework.mvp.presenter
 
 import com.td.framework.biz.ApiSubscriber
+import com.td.framework.biz.NetError
 import com.td.framework.mvp.comm.RequestType
 import com.td.framework.mvp.view.BaseView
-import com.trello.rxlifecycle2.android.ActivityEvent
-import com.trello.rxlifecycle2.android.FragmentEvent
-import com.trello.rxlifecycle2.components.RxActivity
-import com.trello.rxlifecycle2.components.RxFragment
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import com.trello.rxlifecycle2.components.support.RxFragmentActivity
+import com.trello.rxlifecycle3.android.ActivityEvent
+import com.trello.rxlifecycle3.android.FragmentEvent
+import com.trello.rxlifecycle3.components.RxActivity
+import com.trello.rxlifecycle3.components.RxFragment
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
+import com.trello.rxlifecycle3.components.support.RxFragmentActivity
 import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 /**
  * 基类P
@@ -63,23 +63,34 @@ abstract class BasePresenter<V>(val v: V) {
      */
     protected fun <T> request(request: Flowable<T>?, requestType: Int = RequestType.UNDFINE,
                               result: (T?) -> Unit) {
+        request(request, requestType, result, {
+            // null block
+        })
+    }
+
+    /**
+     * 开始请求，携带返回值和错误值
+     */
+    protected fun <T> request(request: Flowable<T>?, requestType: Int = RequestType.UNDFINE,
+                              result: (T?) -> Unit, errorBack: () -> Unit) {
         subscribe = request?.compose(this.getCompose())
                 ?.subscribeWith(object : ApiSubscriber<T>(v as BaseView, requestType) {
                     override fun onNext(t: T?) {
                         result.invoke(t)
                     }
 
+                    override fun onError(e: Throwable?) {
+                        super.onError(e)
+                        errorBack.invoke()
+                    }
+
+                    override fun onFail(error: NetError?) {
+                        super.onFail(error)
+                        errorBack.invoke()
+                    }
                 })
     }
 
-    fun mapToParams(param: Any): Map<String, String> {
-        //创建参数集合
-        val mParamsMap = WeakHashMap<String, String>()
-        //获取反射
-//        param.javaClass.kotlin.memberProperties
-
-        return mParamsMap
-    }
 
     /**
      * 已订阅，暂留，用来做后续的优化
@@ -102,7 +113,7 @@ abstract class BasePresenter<V>(val v: V) {
                         is RxFragmentActivity -> v.bindUntilEvent<T>(ActivityEvent.DESTROY)
                         is RxActivity -> v.bindUntilEvent<T>(ActivityEvent.DESTROY)
                         is RxFragment -> v.bindUntilEvent<T>(FragmentEvent.DESTROY)
-                        is com.trello.rxlifecycle2.components.support.RxFragment -> v.bindUntilEvent<T>(FragmentEvent.DESTROY)
+                        is com.trello.rxlifecycle3.components.support.RxFragment -> v.bindUntilEvent<T>(FragmentEvent.DESTROY)
                         else -> (v as RxAppCompatActivity).bindUntilEvent<T>(ActivityEvent.DESTROY)
                     })
         }

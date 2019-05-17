@@ -24,7 +24,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.td.framework.utils.amin.JumpAnimUtils
 
 inline fun <reified T : Activity> Context.launcherActivity(vararg params: Pair<String, Any>) {

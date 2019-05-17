@@ -2,7 +2,7 @@ package com.td.framework.expand
 
 import android.Manifest
 import android.app.Activity
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.td.framework.utils.L
 import com.td.framework.utils.T

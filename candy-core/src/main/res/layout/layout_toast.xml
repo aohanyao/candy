@@ -17,5 +17,5 @@
         android:layout_height="wrap_content"
         android:text="消息"
         android:textColor="#fff"
-        android:textSize="@dimen/sp_12"/>
+        android:textSize="12sp"/>
 </LinearLayout>

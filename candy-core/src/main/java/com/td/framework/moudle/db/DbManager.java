@@ -4,7 +4,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
-
 import com.td.framework.ex.DbException;
 import com.td.framework.moudle.db.sqlite.SqlInfo;
 import com.td.framework.moudle.db.sqlite.WhereBuilder;

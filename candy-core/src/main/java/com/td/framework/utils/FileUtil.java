@@ -1,11 +1,13 @@
 package com.td.framework.utils;
 
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.text.TextUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -180,13 +182,13 @@ public class FileUtil {
      */
     public static void initFileDir() {
         //默认下载文件根目录.
-        String downloadRootPath = File.separator + "YDCuld" + File.separator + "Download" + File.separator;
+        String downloadRootPath = File.separator + "YiDa" + File.separator + "Download" + File.separator;
 
         delete(new File(downloadRootPath));
         //默认下载图片文件目录.
-        String imageDownloadPath = File.separator + "YDCuld" + File.separator + "Image" + File.separator;
+        String imageDownloadPath = File.separator + "YiDa" + File.separator + "Image" + File.separator;
         // 日志路径
-        String logPath = File.separator + "YDCuld" + File.separator + "log" + File.separator;
+        String logPath = File.separator + "YiDa" + File.separator + "log" + File.separator;
         try {
             if (!isCanUseSD()) {
                 return;
@@ -326,4 +328,33 @@ public class FileUtil {
                 path.endsWith(".JPG")|| path.endsWith(".PNG")|| path.endsWith(".JPEG"));
 
     }
+    /** 产生图片的路径，这里是在缓存目录下 */
+    public static String generateImgePathInStoragePath() {
+        return imageDownloadDir+ String.valueOf(System.currentTimeMillis()) + ".jpg";
+    }
+
+    /**
+     * 复制bm
+     */
+    public static String saveBitmap(Bitmap bm) {
+        String croppath = "";
+        try {
+            File f = new File(FileUtil.generateImgePathInStoragePath());
+            //得到相机图片存到本地的图片
+            croppath = f.getPath();
+            if (f.exists()) {
+                f.delete();
+            }
+            FileOutputStream out = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return croppath;
+    }
+
 }

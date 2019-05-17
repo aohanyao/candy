@@ -4,9 +4,9 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.Fragment
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
+import androidx.fragment.app.Fragment
 import android.view.View
 import com.td.framework.global.app.Constant
 import com.td.framework.global.router.RouterHelper

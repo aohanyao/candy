@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_4"
-            android:text="@string/loading"
+            android:text="加载中 TODO  这里请重写"
             android:textColor="#000"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/load_failed"
+            android:text="加载失败 TODO 请重写"
             android:textColor="#0dddb8" />
 
     </FrameLayout>

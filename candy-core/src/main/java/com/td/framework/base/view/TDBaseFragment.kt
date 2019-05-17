@@ -5,8 +5,8 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
 import android.util.Pair
 import android.view.View
 import com.td.framework.biz.NetError
@@ -14,8 +14,8 @@ import com.td.framework.global.app.Constant
 import com.td.framework.global.router.RouterHelper
 import com.td.framework.utils.T
 import com.td.framework.utils.amin.JumpAnimUtils
-import com.trello.rxlifecycle2.android.FragmentEvent
-import com.trello.rxlifecycle2.components.support.RxFragment
+import com.trello.rxlifecycle3.android.FragmentEvent
+import com.trello.rxlifecycle3.components.support.RxFragment
 import io.reactivex.FlowableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

@@ -2,7 +2,7 @@ package com.td.framework.ui;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -15,6 +15,7 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 
 import com.td.framework.R;
+import com.td.framework.base.listener.BaseTextWatcher;
 import com.td.framework.utils.DensityUtils;
 import com.td.framework.utils.KeyBoardUtils;
 
@@ -40,6 +41,15 @@ public class ClearEditText extends AppCompatEditText implements
      * 类型
      */
     private int type = Type.NONE;
+
+    /**
+     * 文本更改
+     */
+    private BaseTextWatcher textChangedListener;
+    /**
+     * 焦点事件
+     */
+    private FocusChangeListener focusChangeListener;
 
     public ClearEditText(Context context) {
         this(context, null);
@@ -103,11 +113,14 @@ public class ClearEditText extends AppCompatEditText implements
      */
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
+        if (focusChangeListener != null) {
+            focusChangeListener.focusChangeListener(v, hasFocus);
+        }
         this.hasFoucs = hasFocus;
 //        if (hasFocus) {
         setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
         KeyBoardUtils.foucsString(this);
-        setClearIconVisible(getText().length() > 0&&hasFocus);
+        setClearIconVisible(getText().length() > 0 && hasFocus);
 //        } else {
 //            setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
 //            setClearIconVisible(false);
@@ -136,11 +149,17 @@ public class ClearEditText extends AppCompatEditText implements
         if (hasFoucs) {
             setClearIconVisible(s.length() > 0);
         }
+        if (textChangedListener != null) {
+            textChangedListener.onTextChanged(s, start, count, after);
+        }
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count,
                                   int after) {
+        if (textChangedListener != null) {
+            textChangedListener.beforeTextChanged(s, start, count, after);
+        }
 
     }
 
@@ -154,7 +173,9 @@ public class ClearEditText extends AppCompatEditText implements
 
     @Override
     public void afterTextChanged(Editable s) {
-
+        if (textChangedListener != null) {
+            textChangedListener.afterTextChanged(s);
+        }
     }
 
 
@@ -180,6 +201,13 @@ public class ClearEditText extends AppCompatEditText implements
         return translateAnimation;
     }
 
+    public void setTextChangedListener(BaseTextWatcher textChangedListener) {
+        this.textChangedListener = textChangedListener;
+    }
+
+    public void setFocusChangeListener(FocusChangeListener focusChangeListener) {
+        this.focusChangeListener = focusChangeListener;
+    }
 
     public interface Type {
         /**
@@ -188,4 +216,9 @@ public class ClearEditText extends AppCompatEditText implements
         int NONE = 1;
 
     }
+
+    public interface FocusChangeListener {
+        void focusChangeListener(View view, boolean hasFocus);
+    }
+
 }

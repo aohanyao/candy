@@ -3,7 +3,7 @@ package com.td.framework.mvp.base
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.td.framework.biz.NetError
 import com.td.framework.mvp.presenter.BasePresenter
 

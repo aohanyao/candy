@@ -16,7 +16,7 @@
 
 package com.td.framework.mvp.view;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.td.framework.biz.NetError;
 

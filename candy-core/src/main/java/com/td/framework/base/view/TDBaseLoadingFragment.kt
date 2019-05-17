@@ -1,12 +1,11 @@
 package com.td.framework.base.view
 
-import android.support.design.widget.CoordinatorLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
-
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.td.framework.R
 import com.td.framework.ui.VStatusBar
 
@@ -14,22 +13,20 @@ import com.td.framework.ui.VStatusBar
 /**
  * Created by jc on 2016/12/30 0030.
  *
- * Gihub
- *
  * 需要加载数据的Fragment
  */
 
 abstract class TDBaseLoadingFragment : TDBaseFragment() {
     /**加载中*/
-    private var mLoadView: View? = null
+    protected var mLoadView: View? = null
     /**重试*/
-    private var mRetryView: View? = null
+    protected var mRetryView: View? = null
     /**空数据*/
     protected var mEmptyView: View? = null
     /**状态栏*/
-    private var mStatusBarView: View? = null
+    protected var mStatusBarView: View? = null
     /**无权限*/
-    private var mNoPermissionsView: View? = null
+    protected var mNoPermissionsView: View? = null
 
     protected open var mErrorTextView: TextView? = null
 
@@ -179,7 +176,7 @@ abstract class TDBaseLoadingFragment : TDBaseFragment() {
 
      * @param retryView
      */
-    private fun setRetryEvent(retryView: View?) {
+    protected fun setRetryEvent(retryView: View?) {
         retryView?.findViewById<View>(R.id.id_retry)
                 ?.setOnClickListener {
                     showLoading()

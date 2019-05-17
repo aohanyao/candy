@@ -8,15 +8,15 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.AppBarLayout
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.widget.Toolbar
+import androidx.annotation.StringRes
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
+import androidx.appcompat.widget.Toolbar
 import android.util.Pair
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.google.android.material.appbar.AppBarLayout
 import com.td.framework.R
 import com.td.framework.global.app.AppManager
 import com.td.framework.global.app.Constant
@@ -28,8 +28,7 @@ import com.td.framework.utils.T
 import com.td.framework.utils.amin.JumpAnimUtils
 import com.td.framework.utils.statusbar.StatusBarModeUtil
 import com.td.framework.utils.statusbar.StatusBarUtil
-import com.trello.rxlifecycle2.android.ActivityEvent
-import com.umeng.analytics.MobclickAgent
+import com.trello.rxlifecycle3.android.ActivityEvent
 import io.reactivex.FlowableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -63,6 +62,13 @@ import java.io.Serializable
  * 增加了滑动的时候  添加遮罩
  * -------------------------------------
  *
+ *
+ * -------------------------------------
+ * 2019年1月17日 10:43:38
+ * 删除了友盟
+ * -------------------------------------
+ *
+ *
  */
 
 open class TDBaseActivity : SwipeBackActivity() {
@@ -95,12 +101,6 @@ open class TDBaseActivity : SwipeBackActivity() {
     //2018年3月7日增加
     override fun onStart() {
         super.onStart()
-//        if (useEventBus() && isCreate) {
-//            try {
-//                EventBus.getDefault().register(this)
-//            } catch (e: Exception) {
-//            }
-//        }
         if (isCreate && isInitToolBar()) {
             //初始化纯颜色的标题栏
             initToolbar(ThemHelper.getPrimaryColor(), null)
@@ -109,14 +109,10 @@ open class TDBaseActivity : SwipeBackActivity() {
 
     override fun onResume() {
         super.onResume()
-        MobclickAgent.onResume(this)
-        System.gc()
     }
 
     override fun onPause() {
         super.onPause()
-        MobclickAgent.onPause(this)
-        System.gc()
     }
 
     override fun onDestroy() {
@@ -212,12 +208,16 @@ open class TDBaseActivity : SwipeBackActivity() {
 
     /**
      * 是否使用灰色的状态栏
+     * 有两种方式：
+     * ①通过ThemHelper.setUseDarkStatusBar()进行设置，这是全局作用的。
+     * ②通过覆写useDarkStatusBar()方法来进行设置。
      */
     protected open fun useDarkStatusBar(): Boolean {
         // return true //太多了，不想在每个页面进行重写
         // 2018年3月15日12:26:15 进行了修改
         // 2018年3月16日14:53:20  直接更改为了是否使用灰色模式
-        return ThemHelper.getPrimaryColor() == (0xffffffff.toInt())
+        // 2019年1月7日 11:05:46 改成从配置中获取
+        return ThemHelper.getUseDarkStatusBar()
 
     }
 
@@ -287,10 +287,9 @@ open class TDBaseActivity : SwipeBackActivity() {
                 //设置padding 不使用纯色的时候，padding去除
                 appBarLayout.setPadding(0, statusBarHeight, 0, 0)
                 // 设置沉浸
-                // 魅族这里需要先设置沉浸，才能设置颜色模式
                 StatusBarUtil.setTranslucentForImageView(mActivity, 0, null)
                 //设置颜色模式
-                StatusBarModeUtil.StatusBarLightMode(mActivity)
+                StatusBarModeUtil.StatusBarLightMode(/*useDarkStatusBar(),*/ mActivity)
                 //布局参数的更改
                 appBarLayout.layoutParams = params
 

@@ -4,17 +4,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 
 // 私服配置
-//apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'org.jetbrains.dokka-android'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
-    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
-        versionCode 1027
-        versionName "v0.027alpha"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 1041
+        versionName "v0.041alpha"
 
     }
     lintOptions {
@@ -68,123 +66,109 @@ android {
     //-----------------------------------------jakpt配置
 }
 //--------------------------------------------私服配置
-//
-//// 打包源码jar
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-////编译groovy代码时采用 UTF-8
-//tasks.withType(GroovyCompile) {
-//    groovyOptions.encoding = "MacRoman"
-//}
-//
-////编译JAVA文件时采用UTF-8
-//tasks.withType(JavaCompile) {
-//    options.encoding = "UTF-8"
-//}
-//
-//task javadoc(type: Javadoc) {
-//    failOnError false
-//    source = android.sourceSets.main.java.sourceFiles
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//    classpath += configurations.compile
-//}
-//
-//// 打包文档jar
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//
-//
-//def getRepositoryUsername() {
-//    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
-//}
-//
-//def getRepositoryPassword() {
-//    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
-//}
-//
-//def getRepositoryUrl() {
-//    return IS_RELEASE_BUILD.toBoolean() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL
-//}
-//
-//afterEvaluate { project ->
-//    uploadArchives {
-//        repositories {
-//            mavenDeployer {
-//                pom.groupId = 'com.td.framework'
-//                pom.artifactId = 'candy'
-//                pom.version = IS_RELEASE_BUILD.toBoolean() ? RELEASES_VERSION_NAME : SNAPSHOT_VERSION_NAME
-//                repository(url: getRepositoryUrl()) {
-//                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-//                }
-//            }
-//        }
-//    }
-//
-//    dokka {
-//        includes = ['Module.md']
-//
-//        linkMapping {
-//            dir = "src/main/kotlin"
-//            url = "https://github.com/JetBrains/kotlin-examples/tree/master/gradle/dokka-gradle-example/src/main/kotlin"
-//            suffix = "#L"
-//        }
-//    }
-//
-//    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-//        outputFormat = "javadoc"
-//        outputDirectory = "$buildDir/dokkaJavadoc"
-//    }
-//
-//    //解决 JavaDoc 中文注释生成失败的问题
-//    tasks.withType(Javadoc) {
-//        options.addStringOption('Xdoclint:none', '-quiet')
-//        options.addStringOption('encoding', 'UTF-8')
-//        options.addStringOption('charSet', 'UTF-8')
-//    }
-//
-//    artifacts {
-//        archives sourcesJar
-//        archives javadocJar
-//    }
-//
-//}
-//--------------------------------------------私服配置
 
+// 打包源码jar
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//编译groovy代码时采用 UTF-8
+tasks.withType(GroovyCompile) {
+    groovyOptions.encoding = "MacRoman"
+}
+
+//编译JAVA文件时采用UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// 打包文档jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+
+def getRepositoryUsername() {
+    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+}
+
+def getRepositoryUrl() {
+    return IS_RELEASE_BUILD.toBoolean() ? RELEASE_REPOSITORY_URL : SNAPSHOT_REPOSITORY_URL
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                pom.groupId = 'com.td.framework'
+                pom.artifactId = 'candy'
+                pom.version = IS_RELEASE_BUILD.toBoolean() ? RELEASES_VERSION_NAME : SNAPSHOT_VERSION_NAME
+                repository(url: getRepositoryUrl()) {
+                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+                }
+            }
+        }
+    }
+
+    dokka {
+        includes = ['Module.md']
+
+        linkMapping {
+            dir = "src/main/kotlin"
+            url = "https://github.com/JetBrains/kotlin-examples/tree/master/gradle/dokka-gradle-example/src/main/kotlin"
+            suffix = "#L"
+        }
+    }
+
+    task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+        outputFormat = "javadoc"
+        outputDirectory = "$buildDir/dokkaJavadoc"
+    }
+
+    //解决 JavaDoc 中文注释生成失败的问题
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+
+}
+//--------------------------------------------私服配置
 
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["gson"]
-
-
     api rootProject.ext.dependencies["eventbus"]
-    api(rootProject.ext.dependencies["glide"]) {
-        exclude group: 'com.android.support'
-    }
-
+    api(rootProject.ext.dependencies["glide"])
     api rootProject.ext.dependencies["multidex"]
-    api(rootProject.ext.dependencies["Luban"]) {
-        exclude group: 'com.android.support'
-    }
-
-    /**路由*/
+    api(rootProject.ext.dependencies["Luban"])
+    /** 路由 */
     api rootProject.ext.dependencies["arouter-api"]
-    /**友盟*/
-    api 'com.umeng.analytics:analytics:6.1.4'
-
     //*********************Kotlin
     api rootProject.ext.dependencies["kotlin-stdlib"]
     //*********************Kotlin
-
     //*********************网络相关 RX
     api rootProject.ext.dependencies["rxkotlin2"]
     api rootProject.ext.dependencies["rxpermissions2"]
-
     api rootProject.ext.dependencies["rxjava2"]
     api rootProject.ext.dependencies["retrofit2"]
     api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
@@ -192,51 +176,35 @@ dependencies {
     api rootProject.ext.dependencies["okhttp3-logging-interceptor"]
     api rootProject.ext.dependencies["rxandroid2"]
     api rootProject.ext.dependencies["okhttp3"]
-
-    api rootProject.ext.dependencies["rxlifecycle2"]
-    api rootProject.ext.dependencies["rxlifecycle-components2"]
-    api rootProject.ext.dependencies["rxlifecycle-android2"]
+    api rootProject.ext.dependencies["rxlifecycle3"]
+    api rootProject.ext.dependencies["rxlifecycle-components3"]
+    api rootProject.ext.dependencies["rxlifecycle-android3"]
     //*********************网络相关 RX
-
     api rootProject.ext.dependencies["recyclerview-v7"]
     api rootProject.ext.dependencies["cardview-v7"]
     api rootProject.ext.dependencies["constraint-layout"]
-    /**loading view*/
+    /** loading view */
     api rootProject.ext.dependencies["avi-loading"]
-    /**recycleView适配器*/
-    api(rootProject.ext.dependencies["BaseAdapter"]) {
-        exclude group: 'com.android.support'
-    }
-    /**滑动隐藏*/
-    api(rootProject.ext.dependencies["ByeBurger"]) {
-        exclude group: 'com.android.support'
-    }
+    /** recycleView适配器 */
+    api(rootProject.ext.dependencies["BaseAdapter"])
 
-    /**指示器*/
-    api(rootProject.ext.dependencies["circleindicator"]) {
-        exclude group: 'com.android.support'
-    }
-    /**banner*/
-    api(rootProject.ext.dependencies["convenientbanner"]) {
-        exclude group: 'com.android.support'
-    }
-    /**富文本*/
-    api(rootProject.ext.dependencies["richtext"]) {
-        exclude group: 'com.android.support'
-    }
-
+    /** 指示器 */
+    api(rootProject.ext.dependencies["circleindicator"])
+    /** banner */
+    api(rootProject.ext.dependencies["convenientbanner"])
     /*图片选择器*/
-    api('com.github.LuckSiege.PictureSelector:picture_library:v2.2.0') {
-        exclude group: 'com.android.support'
+//    api('com.github.LuckSiege.PictureSelector:picture_library:v2.2.0')
+    api ("com.yida.cloud.power:cloud-library-picture:0.0.1.6-SNAPSHOT") {
+        exclude group: 'androidx.appcompat'
+        exclude group: 'androidx.core'
+        exclude group: 'com.github.bumptech.glide'
+        exclude group: 'androidx.vectordrawable'
     }
-
     api rootProject.ext.dependencies["logger"]
-    /**拼音转换*/
-    api rootProject.ext.dependencies["tinypinyin"]
-
-    api(rootProject.ext.dependencies["Android-PickerView"]) {
-        exclude group: 'com.android.support'
-    }
 
 
+    api(rootProject.ext.dependencies["Android-PickerView"])
+    api files('lib/tinypinyin-2.0.3.jar')
+    api files('lib/tinypinyin-android-asset-lexicons-2.0.3.jar')
+    api files('lib/tinypinyin-lexicons-android-cncity-2.0.3.jar')
 }

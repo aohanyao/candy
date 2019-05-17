@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.td.framework.NetConfig;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -174,9 +172,6 @@ public class PersistentCookieStore {
             ObjectOutputStream outputStream = new ObjectOutputStream(os);
             outputStream.writeObject(cookie);
         } catch (IOException e) {
-            if (NetConfig.isDebug) {
-                e.printStackTrace();
-            }
             return null;
         }
 
@@ -197,13 +192,7 @@ public class PersistentCookieStore {
             ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
             cookie = ((SerializableOkHttpCookies) objectInputStream.readObject()).getCookies();
         } catch (IOException e) {
-            if (NetConfig.isDebug) {
-                e.printStackTrace();
-            }
         } catch (ClassNotFoundException e) {
-            if (NetConfig.isDebug) {
-                e.printStackTrace();
-            }
         }
 
         return cookie;

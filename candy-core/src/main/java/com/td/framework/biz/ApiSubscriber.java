@@ -1,13 +1,11 @@
 package com.td.framework.biz;
 
 import com.google.gson.JsonParseException;
-import com.td.framework.global.app.App;
 import com.td.framework.mvp.comm.RequestType;
 import com.td.framework.mvp.view.BaseView;
 import com.td.framework.utils.DateUtils;
 import com.td.framework.utils.FileUtil;
 import com.td.framework.utils.L;
-import com.umeng.analytics.MobclickAgent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,7 +85,7 @@ public abstract class ApiSubscriber<T> extends ResourceSubscriber<T> {
                     error = (NetError) e;
                 } else {
                     //在这里将错误发送出去
-                    MobclickAgent.reportError(App.newInstance(), error);
+//                    MobclickAgent.reportError(App.newInstance(), error);
                     error = new NetError("很抱歉，我们发生一些错误", NetError.OTHER);
                 }
             }
@@ -214,6 +212,9 @@ public abstract class ApiSubscriber<T> extends ResourceSubscriber<T> {
      */
     public void onFail(NetError error) {
         error.printStackTrace();
+        if (v != null) {
+            v.onFail(error);
+        }
     }
 
 

@@ -41,6 +41,7 @@
     </style>
 
     <style name="BaseToolbarRootStyle">
+        <!--废弃，没有使用-->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/toolbar_height</item>
         <item name="android:id">@id/base_root_toolbar</item>

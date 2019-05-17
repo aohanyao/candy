@@ -4,9 +4,6 @@ import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
-import android.support.annotation.ColorInt
-import android.support.v4.app.Fragment
-import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.InputType
 import android.text.SpannableString
@@ -16,6 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.fragment.app.Fragment
 import com.chad.library.adapter.base.BaseViewHolder
 import com.github.promeg.pinyinhelper.Pinyin
 import com.td.framework.base.listener.BaseAnimatorListener
@@ -168,11 +168,11 @@ fun AppCompatEditText.switchEnterType(block: (isPassword: Boolean) -> Unit) {
     val type = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
     if (inputType === type) {
         inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-        setSelection(text.length)     //把光标设置到当前文本末尾
+        setSelection(text?.length?:0)     //把光标设置到当前文本末尾
         block.invoke(true)
     } else {
         inputType = type
-        setSelection(text.length)
+        setSelection(text?.length?:0)
         block.invoke(false)
 
     }

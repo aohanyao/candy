@@ -2,39 +2,115 @@
 <resources>
 
     <declare-styleable name="SettingItemView">
-        <attr name="left_icon" format="reference" />
-        <attr name="background" format="reference" />
-        <attr name="right_icon_visible" format="boolean" />
-        <attr name="right_text" format="string" />
-        <attr name="right_arrow_visible" format="boolean" />
-        <attr name="top_line_visible" format="boolean" />
-        <attr name="top_line_color" format="color" />
-        <attr name="bottom_line_visible" format="boolean" />
-        <attr name="bottom_line_color" format="color" />
-        <attr name="line_height" format="dimension" />
-        <attr name="line_text" format="string" />
+        <attr name="left_icon"
+            format="reference"/>
+        <attr name="background"
+            format="reference"/>
+        <attr name="right_icon_visible"
+            format="boolean"/>
+        <attr name="right_text"
+            format="string"/>
+        <attr name="right_arrow_visible"
+            format="boolean"/>
+        <attr name="top_line_visible"
+            format="boolean"/>
+        <attr name="top_line_color"
+            format="color"/>
+        <attr name="bottom_line_visible"
+            format="boolean"/>
+        <attr name="bottom_line_color"
+            format="color"/>
+        <attr name="line_height"
+            format="dimension"/>
+        <attr name="line_text"
+            format="string"/>
     </declare-styleable>
     <declare-styleable name="SwitchView">
-        <attr name="off_text" format="string" />
-        <attr name="on_text" format="string" />
-        <attr name="on_text_color" format="color" />
-        <attr name="off_text_color" format="color" />
-        <attr name="background_color" format="color" />
-        <attr name="on_background_color" format="color" />
-        <attr name="off_background_color" format="color" />
-        <attr name="text_size" format="dimension" />
-        <attr name="radius" format="dimension" />
-        <attr name="front_ground_width" format="dimension" />
+        <attr name="off_text"
+            format="string"/>
+        <attr name="on_text"
+            format="string"/>
+        <attr name="on_text_color"
+            format="color"/>
+        <attr name="off_text_color"
+            format="color"/>
+        <attr name="background_color"
+            format="color"/>
+        <attr name="on_background_color"
+            format="color"/>
+        <attr name="off_background_color"
+            format="color"/>
+        <attr name="text_size"
+            format="dimension"/>
+        <attr name="radius"
+            format="dimension"/>
+        <attr name="front_ground_width"
+            format="dimension"/>
     </declare-styleable>
 
-    <attr name="indexBarTextSize" format="dimension" />
-
+    <attr name="indexBarTextSize"
+        format="dimension"/>
 
     <declare-styleable name="SwitchButtonView">
-        <attr name="hasShadow" format="boolean" />
-        <attr name="primaryColor" format="color" />
-        <attr name="primaryColorDark" format="color" />
-        <attr name="isOpened" format="boolean" />
+        <attr name="hasShadow"
+            format="boolean"/>
+        <attr name="primaryColor"
+            format="color"/>
+        <attr name="primaryColorDark"
+            format="color"/>
+        <attr name="isOpened"
+            format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabLayout">
+        <!--<attr format="color" name="tabIndicatorColor"/>-->
+        <!--<attr format="dimension" name="tabIndicatorHeight"/>-->
+        <!--<attr format="dimension" name="tabContentStart"/>-->
+        <!--<attr format="reference" name="tabBackground"/>-->
+        <!--<attr name="tabMode">-->
+        <!--<enum name="scrollable" value="0"/>-->
+        <!--<enum name="fixed" value="1"/>-->
+        <!--</attr>-->
+        <!--<attr name="tabGravity">-->
+        <!--<enum name="fill" value="0"/>-->
+        <!--<enum name="center" value="1"/>-->
+        <!--</attr>-->
+        <!--<attr format="dimension" name="tabMinWidth"/>-->
+        <!--<attr format="dimension" name="tabMaxWidth"/>-->
+        <!--<attr format="reference" name="tabTextAppearance"/>-->
+        <!--<attr format="color" name="tabTextColor"/>-->
+        <!--<attr format="color" name="tabSelectedTextColor"/>-->
+        <!--<attr format="dimension" name="tabPaddingStart"/>-->
+        <!--<attr format="dimension" name="tabPaddingTop"/>-->
+        <!--<attr format="dimension" name="tabPaddingEnd"/>-->
+        <!--<attr format="dimension" name="tabPaddingBottom"/>-->
+        <!--<attr format="dimension" name="tabPadding"/>-->
+        <attr format="enum"
+            name="tabIndicatorShape">
+            <enum name="rect"
+                value="1"/>
+            <enum name="roundRect"
+                value="0"/>
+        </attr>
+        <attr format="dimension"
+            name="tabIndicatorWidth"/>
+        <attr format="enum"
+            name="tabIndicatorEqual">
+            <enum name="equalToTab"
+                value="0"/>
+            <enum name="equalToText"
+                value="1"/>
+            <enum name="equalToIcon"
+                value="2"/>
+            <enum name="equalToCustom"
+                value="3"/>
+        </attr>
+        <attr format="float"
+            name="tabIndicatorStretch"/>
+        <attr format="dimension"
+            name="tabSelectedTextSize"/>
+        <attr format="dimension"
+            name="tabTextSize"/>
     </declare-styleable>
 
 </resources>

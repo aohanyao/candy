@@ -59,7 +59,7 @@ fun ImageView.loadRoundImage(url: String?) {
 }
 
 /**
- * @param defaultLoading 默认占位图
+ *  @param ra 圆角角度
  */
 fun ImageView.loadRoundImage(url: String?, ra: Int) {
     ImageHelper.loadRoundImage(context, url ?: "", this, ra)
@@ -67,7 +67,16 @@ fun ImageView.loadRoundImage(url: String?, ra: Int) {
 }
 
 /**
- * @param ra 圆角角度
+ * @param defaultLoading 默认占位图
+ *  @param ra 圆角角度
+ */
+fun ImageView.loadRoundImage(defaultLoading: Int, url: String?, ra: Int) {
+    ImageHelper.loadRoundImage(context, url ?: "", defaultLoading, this, ra)
+//    ImageHelper.loadRoundImage(context, url ?: "", defaultLoading, this)
+}
+
+/**
+ * @param defaultLoading 默认占位图
  */
 fun ImageView.loadRoundImage(defaultLoading: Int, url: String?) {
 //    ImageHelper.loadRoundImage(context, url ?: "", this, ra)

@@ -1,6 +1,6 @@
 package com.td.framework.base.listener;
 
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by jc on 2017/1/4 0004.

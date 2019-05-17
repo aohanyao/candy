@@ -1,12 +1,12 @@
 package com.td.framework.global.app;
 
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.td.framework.utils.L;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by jc on 2016/12/23 0023.
@@ -43,8 +43,8 @@ public class App extends MultiDexApplication {
         mContext = this;
         //友盟统计
 //        MobclickAgent.setCatchUncaughtExceptions(!L.isDebug);
-        MobclickAgent.setDebugMode(L.isDebug);
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+//        MobclickAgent.setDebugMode(L.isDebug);
+//        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
         if (L.isDebug) {
             ARouter.openLog();     // 打印日志

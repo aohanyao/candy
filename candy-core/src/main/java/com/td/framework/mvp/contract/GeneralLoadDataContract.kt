@@ -15,10 +15,7 @@ import io.reactivex.Flowable
  * 版本:1.0.0
  * **说明**通用加载数据合同<br></br>
  *
- *  *  jc：  2018年1月3日09:19:31
- *  *  有一些问题，没有考虑好分页的情况，加了一个接口的方式，希望能够解决这个问题。 待定。
- *  *
- **** */
+ */
 interface GeneralLoadDataContract {
     /**
      * 通用加载数据的View层
@@ -113,7 +110,7 @@ interface GeneralLoadDataContract {
             //取消前一次请求
             unSubscribe()
             //开始请求
-            request(getRequestDataObservable(params), RequestType.LOAD_MORE_LIST) {
+            request(getRequestDataObservable(params), RequestType.LOAD_MORE_LIST, {
                 //强转类型
                 val list = it?.list ?: arrayListOf()
                 //返回数据
@@ -122,7 +119,10 @@ interface GeneralLoadDataContract {
                 if (list.isEmpty() || mPagerIndex >= it?.maxPage ?: mPagerIndex) {
                     v.noMore()
                 }
-            }
+            }, {
+                // 发生错误，回滚
+                mPagerIndex -= 1
+            })
         }
 
         /**

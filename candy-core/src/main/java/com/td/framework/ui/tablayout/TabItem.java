@@ -18,10 +18,12 @@ package com.td.framework.ui.tablayout;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.design.R;
-import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.appcompat.widget.TintTypedArray;
+
+import com.td.framework.R;
 
 /**
  * TabItem is a special 'view' which allows you to declare tab items for a {@link TabLayout}

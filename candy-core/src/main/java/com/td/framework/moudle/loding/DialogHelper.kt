@@ -2,8 +2,8 @@ package com.td.framework.moudle.loding
 
 import android.app.Activity
 import android.content.DialogInterface
-import android.support.annotation.StyleRes
-import android.support.v7.app.AlertDialog
+import androidx.annotation.StyleRes
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button

@@ -11,9 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.td.framework.BuildProperties;
-
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -115,7 +112,7 @@ public class StatusBarModeUtil {
                 window.setAttributes(lp);
                 result = true;
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
         return result;
@@ -305,21 +302,7 @@ public class StatusBarModeUtil {
     private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
 
-    /**
-     * 判断手机是否是小米
-     *
-     * @return
-     */
-    public static boolean isMIUI() {
-        try {
-            final BuildProperties prop = BuildProperties.newInstance();
-            return prop.getProperty(KEY_MIUI_VERSION_CODE, null) != null
-                    || prop.getProperty(KEY_MIUI_VERSION_NAME, null) != null
-                    || prop.getProperty(KEY_MIUI_INTERNAL_STORAGE, null) != null;
-        } catch (final IOException e) {
-            return false;
-        }
-    }
+
 
     /**
      * 判断手机是否是魅族
@@ -332,32 +315,11 @@ public class StatusBarModeUtil {
             final Method method = Build.class.getMethod("hasSmartBar");
             return method != null;
         } catch (final Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
-    /**
-     * 设置状态栏文字色值为深色调
-     *
-     * @param useDart  是否使用深色调
-     * @param activity
-     */
-    public static void setStatusTextColor(boolean useDart, Activity activity) {
-        if (isFlyme()) {
-            processFlyMe(useDart, activity);
-        } else if (isMIUI()) {
-            processMIUI(useDart, activity);
-        } else {
-            if (useDart) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                }
-            } else {
-                activity.getWindow().getDecorView().setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            }
-            activity.getWindow().getDecorView().findViewById(android.R.id.content).setPadding(0, 0, 0, navigationHeight);
-        }
-    }
+
 }
 

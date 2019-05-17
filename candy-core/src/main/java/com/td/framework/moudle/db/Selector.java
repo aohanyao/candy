@@ -17,7 +17,6 @@ package com.td.framework.moudle.db;
 
 import android.database.Cursor;
 
-
 import com.td.framework.ex.DbException;
 import com.td.framework.moudle.db.sqlite.WhereBuilder;
 import com.td.framework.moudle.db.table.DbModel;

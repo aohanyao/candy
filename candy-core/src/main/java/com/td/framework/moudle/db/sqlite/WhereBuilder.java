@@ -17,7 +17,6 @@ package com.td.framework.moudle.db.sqlite;
 
 import android.text.TextUtils;
 
-
 import com.td.framework.moudle.db.converter.ColumnConverterFactory;
 import com.td.framework.moudle.db.table.ColumnUtils;
 

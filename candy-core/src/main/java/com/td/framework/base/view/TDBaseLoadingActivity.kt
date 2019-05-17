@@ -1,7 +1,6 @@
 package com.td.framework.base.view
 
 import android.os.Build
-import android.support.design.widget.CoordinatorLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import com.td.framework.utils.statusbar.StatusBarUtil
 /**
  * Created by jc on 2016/12/30 0030.
  *
- * Gihub
  *
  * 需要加载数据的Activity
  */
@@ -33,7 +31,7 @@ abstract class TDBaseLoadingActivity : TDBaseActivity() {
      * @return
      */
     protected fun inflateView(resId: Int): View {
-        val contentView = LayoutInflater.from(mActivity).inflate(resId, null, false) as CoordinatorLayout
+        val contentView = LayoutInflater.from(mActivity).inflate(resId, null, false) as ViewGroup
         initLoadView(contentView)
         return contentView
     }
@@ -65,7 +63,7 @@ abstract class TDBaseLoadingActivity : TDBaseActivity() {
         frameLayout.addView(mRetryView)
         frameLayout.addView(mEmptyView)
         frameLayout.addView(mNoPermissionsView)
-        (view as CoordinatorLayout).addView(frameLayout)
+        (view as ViewGroup).addView(frameLayout)
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.td.framework.ui.appbar;
 
-import android.support.design.widget.AppBarLayout;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 /**APP bar 状态变更*/
 public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedListener {

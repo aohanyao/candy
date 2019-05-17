@@ -2,7 +2,6 @@ package com.td.framework.biz;
 
 import android.text.TextUtils;
 
-import com.td.framework.NetConfig;
 import com.td.framework.biz.interceptor.XInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -92,8 +91,6 @@ public class BaseApi {
      */
     public static void registerConfigProvider(NetProvider provider) {
         BaseApi.provider = provider;
-        //赋值debug
-        NetConfig.isDebug = provider.configLogEnable();
         //赋值为空
         instance = null;
     }

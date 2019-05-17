@@ -10,7 +10,7 @@ import com.td.framework.R;
  * Created by zhangxiugao on 2018/6/21
  */
 
-public class ScaleImageView extends android.support.v7.widget.AppCompatImageView {
+public class ScaleImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     //宽高比，由我们自己设定
     private float ratio;

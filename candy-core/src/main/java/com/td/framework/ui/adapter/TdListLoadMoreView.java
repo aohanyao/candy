@@ -2,8 +2,8 @@ package com.td.framework.ui.adapter;
 
 
 import android.graphics.Color;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
+
+import androidx.annotation.LayoutRes;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
